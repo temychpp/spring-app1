@@ -5,33 +5,8 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
-    <context:property-placeholder location="classpath:musicPlayer.properties"/>
 
-    <!--    <bean id="musicBean" class="com.temychp.spring.RapMusic">-->
-    <!--    </bean>-->
-    <!--    <bean id="musicBean2" class="com.temychp.spring.RockMusic">-->
-    <!--    </bean>-->
-    <bean id="musicBean" class="com.temychp.spring.ClassicalMusic"
-          init-method="doMyInit"
-          destroy-method="doMyDestroy"
-          factory-method="getClassicalMusic">
-
-
-    </bean>
-
-    <!--    <bean id="musicPlayer"-->
-    <!--          class="com.temychp.spring.MusicPlayer">-->
-    <!--        <property name="musicList">-->
-    <!--            <list>-->
-    <!--                <ref bean="musicBean"/>-->
-    <!--                <ref bean="musicBean2"/>-->
-    <!--                <ref bean="musicBean3"/>-->
-    <!--            </list>-->
-    <!--        </property>-->
-
-    <!--        <property name="name" value="${musicPlayer.name}"/>-->
-    <!--        <property name="volume" value="${musicPlayer.volume}"/>-->
-    <!--    </bean>-->
+    <context:component-scan base-package="com.temychp.spring"/>
 
 
 </beans>

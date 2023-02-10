@@ -1,9 +1,12 @@
 package com.temychp.spring;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class ClassicalMusic implements Music {
 
 
-    private ClassicalMusic() {}
+    public ClassicalMusic() {}
 
     public static ClassicalMusic getClassicalMusic(){
         return new ClassicalMusic();
@@ -19,6 +22,6 @@ public class ClassicalMusic implements Music {
 
     @Override
     public String getSong() {
-        return "Vivaldi";
+        return "classic Vivaldi";
     }
 }
