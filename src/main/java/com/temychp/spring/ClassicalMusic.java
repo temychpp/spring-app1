@@ -2,26 +2,25 @@ package com.temychp.spring;
 
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 @Component
 public class ClassicalMusic implements Music {
 
+    Random rnd = new Random();
 
-//    public ClassicalMusic() {}
+    private List<String>classicSong = new ArrayList<>();
 
-//    public static ClassicalMusic getClassicalMusic(){
-//        return new ClassicalMusic();
-//    }
-//
-//    public void doMyInit(){
-//        System.out.println("Doing my initialization");
-//    }
-//
-//    public void doMyDestroy(){
-//        System.out.println("Doing my destruction");
-//    }
+    {
+        classicSong.add("classic song1");
+        classicSong.add("classic song2");
+        classicSong.add("classic song3");
+    }
 
     @Override
-    public String getSong() {
-        return "classic Vivaldi";
+    public List<String> getSong() {
+       return classicSong;
     }
 }
