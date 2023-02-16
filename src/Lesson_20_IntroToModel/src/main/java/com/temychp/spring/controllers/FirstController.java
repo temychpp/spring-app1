@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/first")
@@ -29,33 +30,37 @@ public class FirstController {
                              @RequestParam(value = "b", required = false) Integer b,
                              @RequestParam(value = "action", required = false) String action,
                              Model model) {
+
         double result;
         String res;
+        try {
+            switch (action) {
+                case "multiplication":
+                    result = a * b;
+                    res = "*";
+                    break;
+                case "addition":
+                    result = a + b;
+                    res = "+";
+                    break;
+                case "subtraction":
+                    result = a - b;
+                    res = "-";
+                    break;
+                case "division":
+                    result = (double) a / b;
+                    res = "/";
+                    break;
+                default:
+                    result = 0;
+                    res = null;
+                    break;
+            }
+            model.addAttribute("calc", a + res + b + "=" + result);
 
-        switch (action) {
-            case "multiplication":
-                result = a * b;
-                res = "*";
-                break;
-            case "addition":
-                result = a + b;
-                res = "+";
-                break;
-            case "subtraction":
-                result = a - b;
-                res = "-";
-                break;
-            case "division":
-                result = (double) a / b;
-                res = "/";
-                break;
-            default:
-                result = 0;
-                res = null;
-                break;
+        } catch (NullPointerException e) {
+            System.out.println(e.getMessage());
         }
-        model.addAttribute("calc", a + res + b + "=" + result);
-
 
         return "first/calculator";
     }
