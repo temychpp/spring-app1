@@ -33,8 +33,8 @@ public class PersonDAO {
 //    }
 
     public Person show(int id) {
-        for (Person person:people) {
-            if(person.getId() == id){
+        for (Person person : people) {
+            if (person.getId() == id) {
                 return person;
             }
         }
@@ -43,7 +43,10 @@ public class PersonDAO {
     }
 
 
-
+    public void save(Person person) {
+        person.setId(++PEOPLE_COUNT);
+        people.add(person);
+    }
 
 
 }
