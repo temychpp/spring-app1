@@ -14,11 +14,11 @@ public class PersonDAO {
 
     {
         people = new ArrayList<>();
-        people.add(new Person(++PEOPLE_COUNT, "Tom"));
-        people.add(new Person(++PEOPLE_COUNT, "Bob"));
-        people.add(new Person(++PEOPLE_COUNT, "Mike"));
-        people.add(new Person(++PEOPLE_COUNT, "Katy"));
-        people.add(new Person(++PEOPLE_COUNT, "Tem"));
+        people.add(new Person(++PEOPLE_COUNT, "Tom",22,"tom@gmail.com"));
+        people.add(new Person(++PEOPLE_COUNT, "Bob",25,"bob@mail.ru"));
+        people.add(new Person(++PEOPLE_COUNT, "Mike",30,"mike@gmail.com"));
+        people.add(new Person(++PEOPLE_COUNT, "Katy",18,"katy@mail.ru"));
+        people.add(new Person(++PEOPLE_COUNT, "Tem",35,"tem@gmail.com"));
     }
 
 
@@ -26,21 +26,12 @@ public class PersonDAO {
         return people;
     }
 
-//    public Person show(int id) {
-//        return people.stream()
-//                .filter(person -> person.getId() == id)
-//                .findAny().orElse(null);
-//    }
-
     public Person show(int id) {
-        for (Person person : people) {
-            if (person.getId() == id) {
-                return person;
-            }
-        }
-
-        return null;
+        return people.stream()
+                .filter(person -> person.getId() == id)
+                .findAny().orElse(null);
     }
+
 
 
     public void save(Person person) {
@@ -51,6 +42,8 @@ public class PersonDAO {
     public void update(int id, Person updatePerson) {
         Person personToBeUpdated = show(id);
         personToBeUpdated.setName(updatePerson.getName());
+        personToBeUpdated.setAge(updatePerson.getAge());
+        personToBeUpdated.setEmail(updatePerson.getEmail());
     }
 
     public void delete(int id) {
