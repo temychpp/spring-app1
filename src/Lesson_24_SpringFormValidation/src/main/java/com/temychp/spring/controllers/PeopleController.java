@@ -2,11 +2,14 @@ package com.temychp.spring.controllers;
 
 import com.temychp.spring.dao.PersonDAO;
 import com.temychp.spring.models.Person;
-import jakarta.validation.Valid;
+//import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+
 
 @Controller
 @RequestMapping("/people")
