@@ -139,12 +139,9 @@ public class PersonDAO {
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
 
-
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
-//        people.removeIf(p -> p.getId() == id);
     }
 }
 
