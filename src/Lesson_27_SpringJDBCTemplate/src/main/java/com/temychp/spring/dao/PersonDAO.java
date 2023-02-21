@@ -36,7 +36,7 @@ public class PersonDAO {
 
     public void save(Person person) {
 
-        jdbcTemplate.update("INSERT INTO Person VALUES (1,?,?,?)",
+        jdbcTemplate.update("INSERT INTO Person(name, age, email) VALUES (?,?,?)",
                 person.getName(), person.getAge(), person.getEmail());
     }
 
@@ -98,6 +98,9 @@ public class PersonDAO {
     }
 
 
+    public void deleteAll() {
+        jdbcTemplate.update("TRUNCATE TABLE Person");
+    }
 }
 
 

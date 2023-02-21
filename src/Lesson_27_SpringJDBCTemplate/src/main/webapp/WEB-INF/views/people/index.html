@@ -13,6 +13,11 @@
 <br/>
 <hr/>
 <a href="/people/new">Create new person</a>
+<br/>
+<form th:method="DELETE" th:action="@{/people}" th:object="${person}">
+    <input type ="submit" value="Deleteall"/>
+</form>
+
 
 </body>
 </html>

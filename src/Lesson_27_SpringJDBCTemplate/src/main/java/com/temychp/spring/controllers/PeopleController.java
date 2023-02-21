@@ -70,8 +70,14 @@ public class PeopleController {
         return "redirect:/people";
     }
 
+
+    @GetMapping("/people")
+    public String deleteAll(Model model) {
+        personDAO.deleteAll();
+        return "people/index";
 }
 
+}
 
 
 
