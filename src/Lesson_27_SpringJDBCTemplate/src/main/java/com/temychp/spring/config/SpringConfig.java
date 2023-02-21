@@ -65,8 +65,8 @@ public class SpringConfig implements WebMvcConfigurer {
 
         dataSource.setDriverClassName(Objects.requireNonNull(environment.getProperty("driver")));
         dataSource.setUrl(environment.getProperty("url"));
-        dataSource.setUsername(environment.getProperty("myusername"));
-        dataSource.setPassword(environment.getProperty("password"));
+        dataSource.setUsername(environment.getProperty("my_username"));
+        dataSource.setPassword(environment.getProperty("my_password"));
 
         return dataSource;
     }
