@@ -17,7 +17,7 @@ public class Person {
 
     private int id;
     @NotEmpty(message = "name should not be empty")
-    @Pattern(regexp = "[A-Z]\\w+")
+    @Pattern(regexp = "[A-Z]\\w+",message = "incorrect name")
     @Size(min = 2, max = 30, message = "name should be between 2 and 30 characters")
     private String name;
     @Min(value = 0, message = "Age should be greater than 0")
@@ -25,10 +25,11 @@ public class Person {
     @NotEmpty(message = "email should not be empty")
     @Email(message = "email should be valid")
     private String email;
+    //Страна, Город, индекс(6 цифр)
 
+    @Pattern(regexp = "[A-Z]\\w+, [A-Z]\\w+, \\d{6}", message = "incorrect address")
     private String address;
 
-    @Pattern(regexp = "[A-Z]\\w+,[A-Z]\\w+,\\d{6}",message ="incorrect address")
     public Person() {
 
     }
