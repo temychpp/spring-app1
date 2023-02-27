@@ -8,14 +8,14 @@ import javax.validation.constraints.Size;
 
 public class Book {
 
-    private int bookId;
+    private int id;
     @NotEmpty(message = "name should not be empty")
-    @Pattern(regexp = "[A-Z]\\w+ [A-Z]\\w+ [A-Z]\\w+", message = "incorrect name")
+  //  @Pattern(regexp = "[A-Z]\\w+ [A-Z]\\w+ [A-Z]\\w+", message = "incorrect name")
     @Size(min = 10, max = 30, message = "name should be between 10 and 30 characters")
     private String name;
 
     @NotEmpty(message = "author should not be empty")
-    private int author;
+    private String author;
 
     @NotEmpty(message = "year should not be empty")
     private int yearOfProduction;
@@ -23,8 +23,8 @@ public class Book {
     public Book() {
     }
 
-    public Book(int bookId, String name, int author, int yearOfProduction) {
-        this.bookId = bookId;
+    public Book(int id, String name, String author, int yearOfProduction) {
+        this.id = id;
         this.name = name;
         this.author = author;
         this.yearOfProduction = yearOfProduction;
@@ -38,27 +38,27 @@ public class Book {
         this.yearOfProduction = yearOfProduction;
     }
 
-    public int getBookId() {
-        return bookId;
+    public int getId() {
+        return id;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setBookId(int bookId) {
-        this.bookId = bookId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public int getAuthor() {
+    public String getAuthor() {
         return author;
     }
 
-    public void setAuthor(int author) {
+    public void setAuthor(String author) {
         this.author = author;
     }
 
