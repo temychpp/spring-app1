@@ -77,12 +77,6 @@ public class PeopleController {
     }
 
 
-    @GetMapping("/people")
-    public String deleteAll(Model model) {
-        personDAO.deleteAll();
-        return "people/index";
-    }
-
 }
 
 

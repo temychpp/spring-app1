@@ -2,7 +2,8 @@ package com.temychp.spring.models;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
 
@@ -17,7 +18,7 @@ public class Book {
     @NotEmpty(message = "author should not be empty")
     private String author;
 
-    @NotEmpty(message = "year should not be empty")
+    @Min(value = 868, message = "Age should be greater than 868")
     private int yearOfProduction;
 
     public Book() {

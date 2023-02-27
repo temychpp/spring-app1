@@ -4,6 +4,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 
 
 public class Person {
@@ -11,11 +12,9 @@ public class Person {
     private int id;
     @NotEmpty(message = "name should not be empty")
    // @Pattern(regexp = "[A-Z]\\w+\\s[A-Z]\\w+\\s[A-Z]\\w+",message = "incorrect name")
-  //  @Size(min = 10, max = 30, message = "name should be between 10 and 30 characters")
+    @Size(min = 10, max = 30, message = "name should be between 10 and 30 characters")
     private String name;
-    @Min(value = 1900, message = "Age should be greater than 0")
-    @Max(value = 2023, message = "Age should be less than 2023")
-   // @Size(min = 1900, max = 2023, message = "name should be between 1900 and 2023 years")
+    @Min(value = 1900, message = "Age should be greater than 1900")
     private int yearOfBirth;
 
     public Person() {

@@ -5,11 +5,25 @@
     <title>Книга</title>
 </head>
 <body>
-<p th:text="${book.getName()}">VALUE</p>
-<p th:text="${book.getYearOfProduction()}">VALUE</p>
+<a th:text="${book.getName()}+', '+ ${book.getAuthor()}  +', '+${book.getYearOfProduction()}">VALUE</a>
+<!--<a th:text="${book.getAuthor()}">VALUE</a>-->
+<!--<a th:text="${book.getYearOfProduction()}">VALUE</a>-->
 
-<a th:href="@{/book/{id}/edit(id=${book.getId()})}">Edit person</a>
-<form th:method="DELETE" th:action="@{/book/{id}/(id=${book.getId()})}">
+<form th:method="PATCH" th:action="@{/admin/add}">
+    <label for="person">Выберите человека:</label>
+    <select th:object="${person}" th:field="*{id}" id="person">
+        <option th:each="person: ${people}"
+                th:value="${person.getId()}"
+                th:text="${person.getName()}">
+        </option>
+    </select>
+
+    <input type="submit" value="Взять книгу"/>
+</form>
+
+
+<a th:href="@{/books/{id}/edit(id=${book.getId()})}">Edit book</a>
+<form th:method="DELETE" th:action="@{/books/{id}/(id=${book.getId()})}">
     <input type ="submit" value="Удалить"/>
 </form>
 </body>
