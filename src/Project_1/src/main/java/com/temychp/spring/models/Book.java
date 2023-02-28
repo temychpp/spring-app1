@@ -1,21 +1,20 @@
 package com.temychp.spring.models;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
-import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-
 
 public class Book {
 
     private int id;
     @NotEmpty(message = "name should not be empty")
-  //  @Pattern(regexp = "[A-Z]\\w+ [A-Z]\\w+ [A-Z]\\w+", message = "incorrect name")
     @Size(min = 10, max = 30, message = "name should be between 10 and 30 characters")
+    @Pattern(regexp = "[А-Яа-я\\s]+",message = "incorrect name")
     private String name;
 
     @NotEmpty(message = "author should not be empty")
+    @Pattern(regexp = "[А-Я][а-я]+\\s+[А-Я][а-я]+",message = "incorrect name")
     private String author;
 
     @Min(value = 868, message = "Age should be greater than 868")

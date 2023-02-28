@@ -2,13 +2,10 @@ package com.temychp.spring.dao;
 
 import com.temychp.spring.models.Person;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,6 +51,10 @@ public class PersonDAO {
     public void delete(int id) {
         jdbcTemplate.update("DELETE FROM Person WHERE id = ?", id);
     }
+
+
+
+
 
 
 }
