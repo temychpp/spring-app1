@@ -58,6 +58,22 @@ public class BookDAO {
                 new BeanPropertyRowMapper<>(Book.class)).stream().findAny();
     }
 
+    public void takeBook(int id, Person personWhichTakeBook) {
+        jdbcTemplate.update("UPDATE Book SET person_id=? WHERE id=?",
+                personWhichTakeBook.getName(), id);
+    }
+
+    public Book showBookTaker(int id) {
+        return jdbcTemplate.query("SELECT Person.id from Book join Person on Person.id = Book.person_id where Book.id=?",
+                        new Object[]{id}, new BeanPropertyRowMapper<>(Book.class))
+                .stream().findAny().orElse(null);
+    }
+
+
+
+
+
+
 }
 
 

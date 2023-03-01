@@ -3,6 +3,7 @@ package com.temychp.spring.controllers;
 import com.temychp.spring.dao.BookDAO;
 import com.temychp.spring.dao.PersonDAO;
 import com.temychp.spring.models.Book;
+import com.temychp.spring.models.Person;
 import com.temychp.spring.util.BookValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,9 +38,10 @@ public class BooksController {
     }
 
     @GetMapping("/{id}")
-    public String show(@PathVariable("id") int id, Model model) {
+    public String show(@PathVariable("id") int id, Model model, @ModelAttribute("person") Person person) {
         model.addAttribute("book", bookDAO.show(id));
-        model.addAttribute("person", PersonDAO.show(id));
+
+        model.addAttribute("person", bookDAO.showBookTaker(id));
 
 
         return "books/show";
