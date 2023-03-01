@@ -9,7 +9,7 @@ public class Book {
 
     private int id;
     @NotEmpty(message = "name should not be empty")
-    @Size(min = 10, max = 30, message = "name should be between 10 and 30 characters")
+    @Size(min = 1, max = 30, message = "name should be between 1 and 30 characters")
     @Pattern(regexp = "[А-Яа-я\\s]+",message = "incorrect name")
     private String name;
 

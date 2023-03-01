@@ -6,10 +6,9 @@
 </head>
 <body>
 <a th:text="${book.getName()}+', '+ ${book.getAuthor()}  +', '+${book.getYearOfProduction()}">VALUE</a>
-<!--<a th:text="${book.getAuthor()}">VALUE</a>-->
-<!--<a th:text="${book.getYearOfProduction()}">VALUE</a>-->
 
-<form th:method="PATCH" th:action="@{/admin/add}">
+
+<form th:method="PATCH" th:action="@{/books/}">
     <label for="person">Выберите человека:</label>
     <select th:object="${person}" th:field="*{id}" id="person">
         <option th:each="person: ${people}"
