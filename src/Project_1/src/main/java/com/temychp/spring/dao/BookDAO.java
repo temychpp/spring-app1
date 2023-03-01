@@ -1,6 +1,7 @@
 package com.temychp.spring.dao;
 
 import com.temychp.spring.models.Book;
+import com.temychp.spring.models.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -52,8 +53,10 @@ public class BookDAO {
         jdbcTemplate.update("DELETE FROM Book WHERE id = ?", id);
     }
 
-
-
+    public Optional<Book> showBookByName(String bookName) {
+        return jdbcTemplate.query("SELECT * FROM Book WHERE name=?", new Object[]{bookName},
+                new BeanPropertyRowMapper<>(Book.class)).stream().findAny();
+    }
 
 }
 

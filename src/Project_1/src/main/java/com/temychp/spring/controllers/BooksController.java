@@ -39,7 +39,7 @@ public class BooksController {
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model) {
         model.addAttribute("book", bookDAO.show(id));
-      //  model.addAttribute("person", PersonDAO.show(id));
+        model.addAttribute("person", PersonDAO.show(id));
 
 
         return "books/show";

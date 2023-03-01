@@ -5,6 +5,9 @@
     <title>Все книги</title>
 </head>
 <body>
+<a href="/people">Люди</a>   <a href="/books">Книги</a>
+<br/>
+<hr/>
 <div th:each="book : ${books}">
     <a th:href="@{/books/{id}(id=${book.getId()})}"
        th:text="${book.getName() + ', ' + book.getAuthor() + ', '+ book.getYearOfProduction()}">book</a>

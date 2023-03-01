@@ -5,6 +5,9 @@
     <title>Все люди</title>
 </head>
 <body>
+<a href="/people">Люди</a> <a>   </a>  <a href="/books">Книги</a>
+<br/>
+<hr/>
 <div th:each="person : ${people}">
     <a th:href="@{/people/{id}(id=${person.getId()})}"
        th:text="${person.getName() + ', '+ person.getYearOfBirth()}">user</a>

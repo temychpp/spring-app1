@@ -28,8 +28,8 @@ public class BookValidator implements Validator {
 
         Book book = (Book) o;
 
-        if (bookDAO.show(book.getName()).isPresent())
-            errors.rejectValue("name", "", "This name is already taken");
+        if (bookDAO.showBookByName(book.getName()).isPresent())
+            errors.rejectValue("name", "", "This name is already taken booknotvalid");
 
     }
 
