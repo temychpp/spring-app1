@@ -5,21 +5,23 @@
     <title>Человек</title>
 </head>
 <body>
-<p th:text="${person.getName()} +', ' + ${person.getYearOfBirth()}">VALUE</p>
+<a style="color:black" href="/people">Люди</a>___
+<a style="color:black" href="/books">Книги</a>
 <hr/>
 
+<span th:text="${person.getName()} +', ' + ${person.getYearOfBirth()}">VALUE</span>
+<hr/>
 <div th:if="${books.isEmpty()}">
-    <p>Человек не взял ни одной книги</p>
+    <span>Человек не взял ни одной книги</span>
 </div>
 
 <div th:if="${!books.isEmpty()}">
-    <p>Человек взял следующие книги:</p>
+    <span>Человек взял следующие книги:</span>
     <div th:each="book : ${books}">
         <a th:text="${book.getName() + ', ' + book.getAuthor() + ', '+ book.getYearOfProduction()}">book</a>
     </div>
 </div>
 <hr/>
-
 <form th:method="GET" th:action="@{/people/{id}/edit(id=${person.getId()})}">
     <input type="submit" value="Редактировать"/>
 </form>
@@ -29,10 +31,3 @@
 </form>
 </body>
 </html>
-
-
-
-
-
-
-

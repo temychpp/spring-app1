@@ -22,11 +22,10 @@ public class PersonValidator implements Validator {
         return Person.class.equals(aClass);
     }
 
-
     @Override
     public void validate(Object o, Errors errors) {
         Person person = (Person) o;
         if (personDAO.showPersonByName(person.getName()).isPresent())
-            errors.rejectValue("name", "", "This name is already taken person not valid");
+            errors.rejectValue("name", "", "This name is already taken personnamenotvalid");
     }
 }

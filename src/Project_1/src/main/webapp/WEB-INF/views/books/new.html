@@ -5,7 +5,9 @@
     <title>Новая книга</title>
 </head>
 <body>
-
+<a style="color:black" href="/people">Люди</a>___
+<a style="color:black" href="/books">Книги</a>
+<hr/>
 <form th:method="POST" th:action="@{/books}" th:object="${book}">
     <label for="name">Название: </label>
     <input type="text" th:field="*{name}" id="name"/>
@@ -21,8 +23,5 @@
     <br/>
     <input type="submit" value="Создать!"/>
 </form>
-
 </body>
 </html>
-
-

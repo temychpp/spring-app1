@@ -12,10 +12,7 @@ import java.util.Optional;
 
 @Component
 public class PersonDAO {
-
-
     private final JdbcTemplate jdbcTemplate;
-
     @Autowired
     public PersonDAO(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -23,7 +20,6 @@ public class PersonDAO {
 
     public List<Person> index() {
         return jdbcTemplate.query("SELECT * FROM Person", new BeanPropertyRowMapper<>(Person.class));
-
     }
 
     public Optional<Person> show(String name) {
@@ -38,7 +34,6 @@ public class PersonDAO {
 
 
     public void save(Person person) {
-
         jdbcTemplate.update("INSERT INTO Person(name, year_of_birth) VALUES (?,?)",
                 person.getName(), person.getYearOfBirth());
     }
@@ -46,13 +41,11 @@ public class PersonDAO {
     public void update(int id, Person updatedPerson) {
         jdbcTemplate.update("UPDATE Person SET name=?, year_of_birth=? WHERE id=?",
                 updatedPerson.getName(), updatedPerson.getYearOfBirth(), id);
-
     }
 
     public void delete(int id) {
         jdbcTemplate.update("DELETE FROM Person WHERE id = ?", id);
     }
-
 
     public List<Book> showBooksWithPersonId(int id) {
         return jdbcTemplate.query("SELECT * FROM Book WHERE person_id=?", new Object[]{id},
@@ -63,16 +56,4 @@ public class PersonDAO {
         return jdbcTemplate.query("SELECT * FROM Person WHERE name=?", new Object[]{personName},
                 new BeanPropertyRowMapper<>(Person.class)).stream().findAny();
     }
-
-
 }
-
-
-
-
-
-
-
-
-
-

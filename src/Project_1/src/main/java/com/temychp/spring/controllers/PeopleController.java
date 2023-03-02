@@ -1,9 +1,7 @@
 package com.temychp.spring.controllers;
 
-import com.temychp.spring.dao.BookDAO;
 import com.temychp.spring.dao.PersonDAO;
 import com.temychp.spring.models.Person;
-//import jakarta.validation.Valid;
 import com.temychp.spring.util.PersonValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -77,16 +75,4 @@ public class PeopleController {
         personDAO.delete(id);
         return "redirect:/people";
     }
-
-
 }
-
-
-
-
-
-
-
-
-
-

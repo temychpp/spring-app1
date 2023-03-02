@@ -5,7 +5,10 @@
     <title>Новый человек</title>
 </head>
 <body>
-
+<a style="color:black" href="/people">Люди</a>___
+<a style="color:black" href="/books">Книги</a>
+<hr/>
+<br/>
 <form th:method="POST" th:action="@{/people}" th:object="${person}">
     <label for="name">Введите ФИО: </label>
     <input type="text" th:field="*{name}" id="name"/>
@@ -20,5 +23,3 @@
 
 </body>
 </html>
-
-

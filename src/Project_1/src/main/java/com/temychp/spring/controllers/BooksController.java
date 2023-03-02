@@ -12,7 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/books")
@@ -20,9 +20,7 @@ public class BooksController {
 
     private final BookDAO bookDAO;
     private final BookValidator bookValidator;
-
     private final PersonDAO personDAO;
-
 
     @Autowired
     public BooksController(BookDAO bookDAO, BookValidator bookValidator, PersonDAO personDAO) {
@@ -43,7 +41,13 @@ public class BooksController {
 
         model.addAttribute("person", bookDAO.showBookTaker(id));
 
+        Optional<Person> booktaker = bookDAO.showBookTaker(id);
 
+        if (booktaker.isPresent()) {
+            model.addAttribute("booktaker", booktaker.get());
+        } else {
+            model.addAttribute("people", personDAO.index());
+        }
         return "books/show";
     }
 
@@ -85,15 +89,15 @@ public class BooksController {
         return "redirect:/books";
     }
 
+    @PatchMapping("/{id}/giveBookToLibrary")
+    public String giveBookToLibrary(@PathVariable("id") int id) {
+        bookDAO.giveBookToLibrary(id);
+        return "redirect:/books/{id}";
+    }
 
+    @PatchMapping("/{id}/giveBookToPerson")
+    public String giveBookToPerson(@PathVariable("id") int id, @ModelAttribute("person") Person person) {
+        bookDAO.giveBookToPerson(id, person);
+        return "redirect:/books/{id}";
+    }
 }
-
-
-
-
-
-
-
-
-
-

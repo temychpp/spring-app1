@@ -5,7 +5,9 @@
     <title>Обновить книгу</title>
 </head>
 <body>
-
+<a style="color:black" href="/people">Люди</a>___
+<a style="color:black" href="/books">Книги</a>
+<hr/>
 <form th:method="PATCH" th:action="@{/books/{id}(id=${book.getId()})}" th:object="${book}">
     <label for="name">Введите название книги: </label>
     <input type="text" th:field="*{name}" id="name"/>
@@ -18,7 +20,7 @@
     <label for="yearOfProduction">Введите год: </label>
     <input type="text" th:field="*{yearOfProduction}" id="yearOfProduction"/>
     <div style="color:red" th:if="${#fields.hasErrors('yearOfProduction')}" th:errors="*{yearOfProduction}">Year Error</div>
-    <br/>
+    <hr/>
     <input type="submit" value="Редактировать!"/>
 </form>
 

@@ -13,7 +13,6 @@ import java.util.Optional;
 @Component
 public class BookDAO {
 
-
     private final JdbcTemplate jdbcTemplate;
 
     @Autowired
@@ -23,7 +22,6 @@ public class BookDAO {
 
     public List<Book> index() {
         return jdbcTemplate.query("SELECT * FROM Book", new BeanPropertyRowMapper<>(Book.class));
-
     }
 
     public Optional<Book> show(String name) {
@@ -36,7 +34,6 @@ public class BookDAO {
                 .stream().findAny().orElse(null);
     }
 
-
     public void save(Book book) {
 
         jdbcTemplate.update("INSERT INTO Book(name, author, year_of_production) VALUES (?,?,?)",
@@ -46,7 +43,6 @@ public class BookDAO {
     public void update(int id, Book updatedBook) {
         jdbcTemplate.update("UPDATE Book SET name=?, author=?, year_of_production=? WHERE id=?",
                 updatedBook.getName(), updatedBook.getAuthor(), updatedBook.getYearOfProduction(), id);
-
     }
 
     public void delete(int id) {
@@ -58,30 +54,18 @@ public class BookDAO {
                 new BeanPropertyRowMapper<>(Book.class)).stream().findAny();
     }
 
-    public void takeBook(int id, Person personWhichTakeBook) {
+    public void giveBookToPerson(int id, Person personWhichTakeBook) {
         jdbcTemplate.update("UPDATE Book SET person_id=? WHERE id=?",
-                personWhichTakeBook.getName(), id);
+                personWhichTakeBook.getId(), id);
     }
 
-    public Book showBookTaker(int id) {
-        return jdbcTemplate.query("SELECT Person.id from Book join Person on Person.id = Book.person_id where Book.id=?",
-                        new Object[]{id}, new BeanPropertyRowMapper<>(Book.class))
-                .stream().findAny().orElse(null);
+    public void giveBookToLibrary(int id) {
+        jdbcTemplate.update("UPDATE Book SET person_id=null WHERE id=?",id);
     }
 
-
-
-
-
-
+    public Optional<Person> showBookTaker(int id) {
+        return jdbcTemplate.query("SELECT Person.* from Book join Person on Person.id = Book.person_id where Book.id=?",
+                        new Object[]{id}, new BeanPropertyRowMapper<>(Person.class))
+                .stream().findAny();
+    }
 }
-
-
-
-
-
-
-
-
-
-
