@@ -12,9 +12,22 @@ public class App {
 
         try {
             session.beginTransaction();
-            Person person = session.get(Person.class, 1);
-            System.out.println(person.getName());
-            System.out.println(person.getAge());
+
+            Person person1 = new Person("Person1", 10);
+            Person person2 = new Person("Person2", 20);
+            Person person3 = new Person("Person3", 30);
+
+            session.save(person1);
+            session.save(person2);
+            session.save(person3);
+
+            session.get(Person.class, 1);
+            session.get(Person.class, 3);
+
+            System.out.println(person1.getName()+" "+ person1.getAge());
+            System.out.println(person3.getName()+" "+ person3.getAge());
+
+            System.out.println();
             session.getTransaction().commit();
         } finally {
             sessionFactory.close();
