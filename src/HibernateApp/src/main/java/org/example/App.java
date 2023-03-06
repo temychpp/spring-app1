@@ -26,13 +26,19 @@ public class App {
 //            System.out.println();
 
 //      2 ищем владельца у товара
-            Item item = session.get(Item.class, 5);
-            System.out.println(item);
-            Person person = item.getOwner();
-            System.out.println(person);
-            System.out.println();
+//            Item item = session.get(Item.class, 5);
+//            System.out.println(item);
+//            Person person = item.getOwner();
+//            System.out.println(person);
+//            System.out.println();
 
-
+//      3 добавляем товар владельцу
+            Person person = session.get(Person.class, 2);
+//устанавливаем связь на стороне товара.
+            Item newItem = new Item("new item from hibernate", person);
+//устанавливаем связь на стороне человека.
+            person.getItems().add(newItem);
+            session.save(newItem);
 
 
             session.getTransaction().commit();
