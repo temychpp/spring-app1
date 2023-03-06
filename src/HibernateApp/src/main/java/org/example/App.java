@@ -33,13 +33,20 @@ public class App {
 //            System.out.println();
 
 //      3 добавляем товар владельцу
-            Person person = session.get(Person.class, 2);
-//устанавливаем связь на стороне товара.
-            Item newItem = new Item("new item from hibernate", person);
-//устанавливаем связь на стороне человека.
-            person.getItems().add(newItem);
-            session.save(newItem);
+//            Person person = session.get(Person.class, 2);
+////устанавливаем связь на стороне товара.
+//            Item newItem = new Item("new item from hibernate", person);
+////устанавливаем связь на стороне человека.
+//            person.getItems().add(newItem);
+//            session.save(newItem);
 
+// 4 добавляем товар новому человеку
+//если сохраняем, только одну сущность, то появляется проблема каскадирования.
+            Person person = new Person("TestPerson//4", 30);
+            Item newItem = new Item("new Item from Hibernate 2", person);
+            person.setItems(new ArrayList<>(Collections.singletonList(newItem)));
+            session.save(person);
+            session.save(newItem);
 
             session.getTransaction().commit();
         } finally {
