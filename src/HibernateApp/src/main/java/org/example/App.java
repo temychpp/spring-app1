@@ -18,6 +18,13 @@ public class App {
         try {
             session.beginTransaction();
 
+//       1 ищем товары у человека
+            Person person = session.get(Person.class, 3);
+            System.out.println(person);
+            List<Item> items = person.getItems();
+            System.out.println(items);
+            System.out.println();
+
 
 
             session.getTransaction().commit();
