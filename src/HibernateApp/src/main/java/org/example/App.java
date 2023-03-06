@@ -42,11 +42,21 @@ public class App {
 
 // 4 добавляем товар новому человеку
 //если сохраняем, только одну сущность, то появляется проблема каскадирования.
-            Person person = new Person("TestPerson//4", 30);
-            Item newItem = new Item("new Item from Hibernate 2", person);
-            person.setItems(new ArrayList<>(Collections.singletonList(newItem)));
-            session.save(person);
-            session.save(newItem);
+//            Person person = new Person("TestPerson//4", 30);
+//            Item newItem = new Item("new Item from Hibernate 2", person);
+//            person.setItems(new ArrayList<>(Collections.singletonList(newItem)));
+//            session.save(person);
+//            session.save(newItem);
+
+// 5 удаляем товары
+            Person person = session.get(Person.class, 3);
+            List<Item> items = person.getItems();
+//Порождает SQL
+            for (Item item : items) {
+                session.remove(item);
+            }
+//НЕ порождает SQL, но необходимо для верного кэша
+            person.getItems().clear();
 
             session.getTransaction().commit();
         } finally {
