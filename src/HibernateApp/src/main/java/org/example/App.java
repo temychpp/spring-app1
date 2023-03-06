@@ -59,6 +59,13 @@ public class App {
 //            person.getItems().clear();
 
 // 6 удаляем человека
+//            Person person = session.get(Person.class, 2);
+////Порождает SQL
+//            session.remove(person);
+//// Правильное состояние hibernate кэша
+//            person.getItems().forEach(i -> i.setOwner(null));
+
+// 7 удаляем человека
             Person person = session.get(Person.class, 2);
 //Порождает SQL
             session.remove(person);
