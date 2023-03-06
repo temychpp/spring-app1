@@ -19,11 +19,19 @@ public class App {
             session.beginTransaction();
 
 //       1 ищем товары у человека
-            Person person = session.get(Person.class, 3);
+//            Person person = session.get(Person.class, 3);
+//            System.out.println(person);
+//            List<Item> items = person.getItems();
+//            System.out.println(items);
+//            System.out.println();
+
+//      2 ищем владельца у товара
+            Item item = session.get(Item.class, 5);
+            System.out.println(item);
+            Person person = item.getOwner();
             System.out.println(person);
-            List<Item> items = person.getItems();
-            System.out.println(items);
             System.out.println();
+
 
 
 
