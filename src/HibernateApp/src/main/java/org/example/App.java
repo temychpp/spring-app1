@@ -49,14 +49,21 @@ public class App {
 //            session.save(newItem);
 
 // 5 удаляем товары
-            Person person = session.get(Person.class, 3);
-            List<Item> items = person.getItems();
+//            Person person = session.get(Person.class, 3);
+//            List<Item> items = person.getItems();
+////Порождает SQL
+//            for (Item item : items) {
+//                session.remove(item);
+//            }
+////НЕ порождает SQL, но необходимо для верного кэша
+//            person.getItems().clear();
+
+// 6 удаляем человека
+            Person person = session.get(Person.class, 2);
 //Порождает SQL
-            for (Item item : items) {
-                session.remove(item);
-            }
-//НЕ порождает SQL, но необходимо для верного кэша
-            person.getItems().clear();
+            session.remove(person);
+// Правильное состояние hibernate кэша
+            person.getItems().forEach(i -> i.setOwner(null));
 
             session.getTransaction().commit();
         } finally {
