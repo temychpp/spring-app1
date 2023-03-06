@@ -66,12 +66,18 @@ public class App {
 //            person.getItems().forEach(i -> i.setOwner(null));
 
 // 7 удаляем человека
-            Person person = session.get(Person.class, 2);
-//Порождает SQL
-            session.remove(person);
-// Правильное состояние hibernate кэша
-            person.getItems().forEach(i -> i.setOwner(null));
+//            Person person = session.get(Person.class, 2);
+////Порождает SQL
+//            session.remove(person);
+//// Правильное состояние hibernate кэша
+//            person.getItems().forEach(i -> i.setOwner(null));
 
+
+// 8 меняем владельца у товара
+            Person person = session.get(Person.class, 4);
+            Item item = session.get(Item.class, 1);
+            item.setOwner(person);
+            person.getItems().add(item);
             session.getTransaction().commit();
         } finally {
             sessionFactory.close();
