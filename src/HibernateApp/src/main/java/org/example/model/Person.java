@@ -1,6 +1,8 @@
-package org.example;
+package org.example.model;
 
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "Person")
@@ -17,6 +19,9 @@ public class Person {
     @Column(name = "age")
     private int age;
 
+    @OneToMany(mappedBy = "owner", cascade =CascadeType.PERSIST)
+    private List<Item> items;
+
     public Person() {
     }
 
@@ -27,6 +32,14 @@ public class Person {
 
     public int getId() {
         return id;
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
     }
 
     public void setId(int id) {
@@ -50,7 +63,7 @@ public class Person {
     }
 
     public String toString() {
-        return this.name + ", " + this.age;
+        return this.id + ", " + this.name + ", " + this.age;
     }
 
 }
