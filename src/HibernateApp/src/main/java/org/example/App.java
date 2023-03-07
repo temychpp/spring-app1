@@ -20,8 +20,10 @@ public class App {
             session.beginTransaction();
 
             Person person = new Person("Test Cascading", 33);
-            Item item = new Item("Test Cascading Item", person);
-            person.setItems(new ArrayList<>(Collections.singletonList(item)));
+
+            person.addItem(new Item("Test Cascading Item11"));
+            person.addItem(new Item("Test Cascading Item12"));
+            person.addItem(new Item("Test Cascading Item13"));
 
             session.save(person);
 

@@ -3,6 +3,7 @@ package org.example.model;
 import jakarta.persistence.*;
 import org.hibernate.annotations.Cascade;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -30,6 +31,14 @@ public class Person {
     public Person(String name, int age) {
         this.name = name;
         this.age = age;
+    }
+
+    public void addItem(Item item) {
+        if (this.items == null)
+            this.items = new ArrayList<>();
+
+        this.items.add(item);
+        item.setOwner(this);
     }
 
     public int getId() {
