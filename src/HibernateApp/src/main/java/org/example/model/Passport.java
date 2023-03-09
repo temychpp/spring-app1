@@ -2,25 +2,27 @@ package org.example.model;
 
 import jakarta.persistence.*;
 
-import java.io.Serializable;
-
 @Entity
 @Table(name = "Passport")
-public class Passport implements Serializable {
+public class Passport {
 
     @Id
-    @OneToOne
-    @JoinColumn(name = "person_id", referencedColumnName = "id")
-    private Person person;
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
     @Column(name = "passport_number")
     private int passportNumber;
+
+    @OneToOne
+    @JoinColumn(name = "person_id", referencedColumnName = "id")
+    private Person person;
 
     public Passport() {
 
     }
 
-    public Passport( int passportNumber) {
+    public Passport(int passportNumber) {
         this.passportNumber = passportNumber;
     }
 
