@@ -29,8 +29,12 @@ public class App {
 
 
 //3 поменять номер пасспорта
-            Person person = session.get(Person.class, 1);
-            person.getPassport().setPassportNumber(7777);
+//            Person person = session.get(Person.class, 1);
+//            person.getPassport().setPassportNumber(7777);
+
+//4 удаление человека
+            Person person = session.get(Person.class, 2);
+            session.remove(person);
 
             session.getTransaction().commit();
         } finally {
