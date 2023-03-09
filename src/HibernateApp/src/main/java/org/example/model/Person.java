@@ -3,9 +3,6 @@ package org.example.model;
 import jakarta.persistence.*;
 import org.hibernate.annotations.Cascade;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
 @Table(name = "Person")
 public class Person {
@@ -20,6 +17,10 @@ public class Person {
 
     @Column(name = "age")
     private int age;
+
+    @OneToOne
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    private Passport passport;
 
     public Person() {
     }
@@ -51,6 +52,14 @@ public class Person {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public Passport getPassport(){
+        return passport;
+    }
+
+    public void setPassport(Passport passport) {
+        this.passport = passport;
     }
 
     public String toString() {

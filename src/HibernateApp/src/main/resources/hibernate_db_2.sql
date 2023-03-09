@@ -5,7 +5,7 @@ CREATE TABLE Person
     age  int
 );
 
-CREATE TABLE Person
+CREATE TABLE Passport
 (
     person_id   int PRIMARY KEY REFERENCES Person(id) ON DELETE CASCADE,
     passport_number int NOT NULL

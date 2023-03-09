@@ -43,6 +43,6 @@ public class Passport implements Serializable {
 
     @Override
     public String toString() {
-        return person + ", " + passportNumber;
+        return this.person + ", " + this.passportNumber;
     }
 }
