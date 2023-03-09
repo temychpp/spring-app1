@@ -18,11 +18,11 @@ public class App {
             session.beginTransaction();
 
             Person person = new Person("Test person", 50);
-            Passport passport = new Passport(person, 123456);
+            Passport passport = new Passport(123456);
 
             person.setPassport(passport);
 
-            session.save(passport);
+            session.save(person);
 
             session.getTransaction().commit();
         } finally {
