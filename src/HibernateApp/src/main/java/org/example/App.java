@@ -1,31 +1,40 @@
 package org.example;
 
-import org.example.model.Item;
+import org.example.model.Passport;
 import org.example.model.Person;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import java.util.ArrayList;
-import java.util.Collections;
-
 public class App {
     public static void main(String[] args) {
-        Configuration configuration = new Configuration().addAnnotatedClass(Person.class).addAnnotatedClass(Item.class);
+        Configuration configuration = new Configuration().
+                addAnnotatedClass(Person.class).
+                addAnnotatedClass(Passport.class);
         SessionFactory sessionFactory = configuration.buildSessionFactory();
         Session session = sessionFactory.getCurrentSession();
-
 
         try {
             session.beginTransaction();
 
-            Person person = new Person("Test Cascading", 33);
+//1 создать человека и паспорт
+//            Person person = new Person("Test person", 50);
+//            Passport passport = new Passport(123456);
+//            person.setPassport(passport);
+//            session.save(person);
 
-            person.addItem(new Item("Test Cascading Item11"));
-            person.addItem(new Item("Test Cascading Item12"));
-            person.addItem(new Item("Test Cascading Item13"));
+//2 имя человека по id паспорта
+//            Passport passport = session.get(Passport.class,1);
+//            System.out.println(passport.getPerson().getName());
 
-            session.save(person);
+
+//3 поменять номер пасспорта
+//            Person person = session.get(Person.class, 1);
+//            person.getPassport().setPassportNumber(7777);
+
+//4 удаление человека
+            Person person = session.get(Person.class, 2);
+            session.remove(person);
 
             session.getTransaction().commit();
         } finally {
