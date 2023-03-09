@@ -24,8 +24,13 @@ public class App {
 //            session.save(person);
 
 //2 имя человека по id паспорта
-            Passport passport = session.get(Passport.class,1);
-            System.out.println(passport.getPerson().getName());
+//            Passport passport = session.get(Passport.class,1);
+//            System.out.println(passport.getPerson().getName());
+
+
+//3 поменять номер пасспорта
+            Person person = session.get(Person.class, 1);
+            person.getPassport().setPassportNumber(7777);
 
             session.getTransaction().commit();
         } finally {
