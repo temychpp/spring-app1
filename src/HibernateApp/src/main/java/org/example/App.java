@@ -33,16 +33,22 @@ public class App {
 //            session.save(actor2);
 
 // 2 узнаем актеров из фильма и фильм у актеров
-            Movie movie = session.get(Movie.class,1);
-            System.out.println(movie.getActors());
+//            Movie movie = session.get(Movie.class,1);
+//            System.out.println(movie.getActors());
+//
+//            Actor actor1 = session.get(Actor.class, 1);
+//            Actor actor2 = session.get(Actor.class, 2);
+//            System.out.println(actor1.getMovies());
+//            System.out.println(actor2.getMovies());
 
-            Actor actor1 = session.get(Actor.class, 1);
-            Actor actor2 = session.get(Actor.class, 2);
-            System.out.println(actor1.getMovies());
-            System.out.println(actor2.getMovies());
+//  3 добавили фильм и назначили ему связь с актером
+            Movie movie = new Movie("Reservoir Dogs", 1992);
+            Actor actor = session.get(Actor.class, 1);
+            movie.setActors(new ArrayList<>(Collections.singletonList(actor)));
+            actor.getMovies().add(movie);
+            session.save(movie);
 
-
-                    session.getTransaction().commit();
+            session.getTransaction().commit();
         }
 
     }
