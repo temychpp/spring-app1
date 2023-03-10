@@ -62,6 +62,26 @@ public class Movie {
         this.yearOfProduction = age;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Movie movie = (Movie) o;
+
+        if (id != movie.id) return false;
+        if (yearOfProduction != movie.yearOfProduction) return false;
+        return name != null ? name.equals(movie.name) : movie.name == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + yearOfProduction;
+        return result;
+    }
+
     public String toString() {
         return this.id + ", " + this.name + ", " + this.yearOfProduction;
     }

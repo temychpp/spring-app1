@@ -42,11 +42,18 @@ public class App {
 //            System.out.println(actor2.getMovies());
 
 //  3 добавили фильм и назначили ему связь с актером
-            Movie movie = new Movie("Reservoir Dogs", 1992);
-            Actor actor = session.get(Actor.class, 1);
-            movie.setActors(new ArrayList<>(Collections.singletonList(actor)));
-            actor.getMovies().add(movie);
-            session.save(movie);
+//            Movie movie = new Movie("Reservoir Dogs", 1992);
+//            Actor actor = session.get(Actor.class, 1);
+//            movie.setActors(new ArrayList<>(Collections.singletonList(actor)));
+//            actor.getMovies().add(movie);
+//            session.save(movie);
+
+//  4  удаляем фильм у актера
+            Actor actor = session.get(Actor.class, 2);
+            Movie movieToRemove = actor.getMovies().get(0);
+
+            actor.getMovies().remove(0);
+            movieToRemove.getActors().remove(actor);
 
             session.getTransaction().commit();
         }
