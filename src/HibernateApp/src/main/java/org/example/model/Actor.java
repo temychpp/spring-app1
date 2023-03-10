@@ -2,6 +2,8 @@ package org.example.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "Actor")
 public class Actor {
@@ -16,6 +18,22 @@ public class Actor {
 
     @Column(name = "age")
     private int age;
+
+    @ManyToMany
+    @JoinTable(
+            name = "Actor_Movie",
+            joinColumns = @JoinColumn(name = "actor_id"),
+            inverseJoinColumns = @JoinColumn(name = "movie_id")
+    )
+    private List<Movie> movies;
+
+    public List<Movie> getMovies() {
+        return movies;
+    }
+
+    public void setMovies(List<Movie> movies) {
+        this.movies = movies;
+    }
 
     public Actor() {
     }
@@ -51,6 +69,6 @@ public class Actor {
 
     @Override
     public String toString() {
-        return this.id + ", " + this.name+ ", " + this.age;
+        return this.id + ", " + this.name + ", " + this.age;
     }
 }

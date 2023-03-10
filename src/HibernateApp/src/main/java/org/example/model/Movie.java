@@ -2,6 +2,8 @@ package org.example.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "Movie")
 public class Movie {
@@ -16,6 +18,17 @@ public class Movie {
 
     @Column(name = "year_of_production")
     private int yearOfProduction;
+
+    @ManyToMany(mappedBy = "movies")
+    private List<Actor> actors;
+
+    public List<Actor> getActors() {
+        return actors;
+    }
+
+    public void setActors(List<Actor> actors) {
+        this.actors = actors;
+    }
 
     public Movie() {
     }

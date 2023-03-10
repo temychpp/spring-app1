@@ -12,14 +12,13 @@ public class App {
                 addAnnotatedClass(Movie.class).
                 addAnnotatedClass(Actor.class);
         SessionFactory sessionFactory = configuration.buildSessionFactory();
-        Session session = sessionFactory.getCurrentSession();
 
-        try {
+        try (sessionFactory){
+            Session session = sessionFactory.getCurrentSession();
             session.beginTransaction();
 
+
             session.getTransaction().commit();
-        } finally {
-            sessionFactory.close();
         }
 
     }
