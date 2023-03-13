@@ -43,6 +43,8 @@ public class PersonDAO {
         Person updatePerson = session.get(Person.class, id);
         updatePerson.setName(updatedPerson.getName());
         updatePerson.setAge(updatedPerson.getAge());
+        updatePerson.setEmail(updatedPerson.getEmail());
+
     }
 
     @Transactional()

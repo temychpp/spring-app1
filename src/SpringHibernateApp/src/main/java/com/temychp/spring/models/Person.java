@@ -3,6 +3,7 @@ package com.temychp.spring.models;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
@@ -21,14 +22,19 @@ public class Person {
     @Column(name = "age")
     private int age;
 
-    public Person() {
+    @Email
+    @NotEmpty(message = "email should not be empty")
+    @Column(name = "email")
+    private String email;
 
+    public Person() {
     }
 
     public Person(int id, String name, int age, String email) {
         this.id = id;
         this.name = name;
         this.age = age;
+        this.email=email;
     }
 
     public int getAge() {
@@ -53,5 +59,23 @@ public class Person {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", email='" + email + '\'' +
+                '}';
     }
 }
