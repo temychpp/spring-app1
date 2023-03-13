@@ -2,7 +2,6 @@ package com.temychp.spring.controllers;
 
 import com.temychp.spring.dao.PersonDAO;
 import com.temychp.spring.models.Person;
-//import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,7 +19,6 @@ public class PeopleController {
     public PeopleController(PersonDAO personDAO) {
         this.personDAO = personDAO;
     }
-
 
     @GetMapping()
     public String index(Model model) {
@@ -71,14 +69,3 @@ public class PeopleController {
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-

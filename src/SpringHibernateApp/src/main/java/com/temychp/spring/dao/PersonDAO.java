@@ -40,7 +40,6 @@ public class PersonDAO {
     @Transactional()
     public void update(int id, Person updatedPerson) {
         Session session = sessionFactory.getCurrentSession();
-
         Person updatePerson = session.get(Person.class, id);
         updatePerson.setName(updatedPerson.getName());
         updatePerson.setAge(updatedPerson.getAge());
@@ -48,23 +47,7 @@ public class PersonDAO {
 
     @Transactional()
     public void delete(int id) {
-
         Session session = sessionFactory.getCurrentSession();
-
         session.delete(session.get(Person.class, id));
-//        return person;
-
     }
-
-
 }
-
-
-
-
-
-
-
-
-
-
