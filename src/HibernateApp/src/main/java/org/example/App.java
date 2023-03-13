@@ -2,6 +2,7 @@ package org.example;
 
 import org.example.model.Item;
 import org.example.model.Person;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -33,12 +34,31 @@ public class App {
 //            System.out.println(item.getOwner());
 
 //3 получаем человека и связанные сущности (Eager)
+//            Person person = session.get(Person.class, 1);
+//            System.out.println("Get person id=1");
+//            System.out.println(person.getItems());
+
+//4 получаем человека и связанные сущности
+//            Person person = session.get(Person.class, 1);
+//            System.out.println("Get person id=1");
+//            System.out.println(person);
+            //подгружаем связанные ленивые сущности
+//            Hibernate.initialize(person.getItems());
+
+//5 получаем человека и связанные сущности
             Person person = session.get(Person.class, 1);
             System.out.println("Get person id=1");
-            System.out.println(person.getItems());
-
             session.getTransaction().commit();
-            // session.close()
+            System.out.println("session.close");
+
+            session = sessionFactory.getCurrentSession();
+            session.beginTransaction();
+            System.out.println("enter second session");
+            person = (Person) session.merge(person);
+            Hibernate.initialize(person.getItems());
+            session.getTransaction().commit();
+            System.out.println("out second session");
+
             System.out.println(person.getItems());
 
 
