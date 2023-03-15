@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Все люди</title>
+</head>
+<body>
+<a style="color:black" href="/people">Люди</a>___
+<a style="color:black" href="/books">Книги</a>
+<hr/>
+<div th:each="person : ${people}">
+    <a th:href="@{/people/{id}(id=${person.getId()})}"
+       th:text="${person.getName() + ', '+ person.getYearOfBirth()}">user</a>
+</div>
+<hr/>
+<form method="GET" action="/people/new">
+    <input type="submit" value="Добавить человека"/>
+</form>
+</body>
+</html>
