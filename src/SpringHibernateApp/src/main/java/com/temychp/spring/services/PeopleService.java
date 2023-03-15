@@ -1,5 +1,6 @@
 package com.temychp.spring.services;
 
+import com.temychp.spring.models.Mood;
 import com.temychp.spring.models.Person;
 import com.temychp.spring.repositories.PeopleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,7 @@ public class PeopleService {
     @Transactional
     public void save(Person person) {
         person.setCreatedAt(new Date());
+        person.setMood(Mood.CALM);
         peopleRepository.save(person);
     }
 
@@ -46,7 +48,8 @@ public class PeopleService {
     public void delete(int id) {
         peopleRepository.deleteById(id);
     }
-    public void test(){
+
+    public void test() {
         System.out.println("Testing here with debug. Inside hibernate Transaction");
     }
 
