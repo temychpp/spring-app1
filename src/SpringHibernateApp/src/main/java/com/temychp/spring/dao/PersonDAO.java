@@ -7,48 +7,37 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Component
 public class PersonDAO {
 
-    private final SessionFactory sessionFactory;
+    private final EntityManager entityManager;
 
     @Autowired
-    public PersonDAO(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    public PersonDAO(EntityManager entityManager) {
+        this.entityManager = entityManager;
     }
 
     @Transactional(readOnly = true)
-    public List<Person> index() {
-        Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("select p from Person p", Person.class).getResultList();
-    }
+    public void testNPlus1() {
+        Session session = entityManager.unwrap(Session.class);
 
-    @Transactional(readOnly = true)
-    public Person show(int id) {
-        Session session = sessionFactory.getCurrentSession();
-        return session.get(Person.class, id);
-    }
+        //N+1 problem.
+//        List<Person> people = session.createQuery("select p from Person p", Person.class)
+//                .getResultList();
+//        for (Person person : people) {
+//            System.out.println("Person " + person.getName() + " has: " + person.getItems());
+//        }
 
-    @Transactional
-    public void save(Person person) {
-        Session session = sessionFactory.getCurrentSession();
-        session.save(person);
-    }
-
-    @Transactional
-    public void update(int id, Person updatedPerson) {
-        Session session = sessionFactory.getCurrentSession();
-        Person updatePerson = session.get(Person.class, id);
-        updatePerson.setName(updatedPerson.getName());
-        updatePerson.setAge(updatedPerson.getAge());
-        updatePerson.setEmail(updatedPerson.getEmail());
-    }
-
-    @Transactional
-    public void delete(int id) {
-        Session session = sessionFactory.getCurrentSession();
-        session.delete(session.get(Person.class, id));
+        //N+1 problem. Solution
+        Set<Person> people = new HashSet<>(session.createQuery("select p from Person p LEFT join FETCH p.items")
+                .getResultList());
+        for (Person person : people) {
+            System.out.println("Person " + person.getName() + " has: " + person.getItems());
+        }
     }
 }

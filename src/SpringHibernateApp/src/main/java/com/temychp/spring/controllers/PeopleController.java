@@ -1,5 +1,6 @@
 package com.temychp.spring.controllers;
 
+import com.temychp.spring.dao.PersonDAO;
 import com.temychp.spring.models.Person;
 import com.temychp.spring.services.ItemService;
 import com.temychp.spring.services.PeopleService;
@@ -19,20 +20,22 @@ public class PeopleController {
 
     private final ItemService itemService;
 
+    private final PersonDAO personDAO;
 
-    public PeopleController(PeopleService peopleService, ItemService itemService) {
+    public PeopleController(PeopleService peopleService, ItemService itemService, PersonDAO personDAO) {
         this.peopleService = peopleService;
         this.itemService = itemService;
+        this.personDAO = personDAO;
     }
 
     @GetMapping()
     public String index(Model model) {
         model.addAttribute("people", peopleService.findALL());
 
-        itemService.findByItemName("Airpods");
-        itemService.findByOwner(peopleService.findALL().get(0))    ;
-
-        peopleService.test();
+        personDAO.testNPlus1();
+//        itemService.findByItemName("Airpods");
+//        itemService.findByOwner(peopleService.findALL().get(0))    ;
+//        peopleService.test();
 
         return "people/index";
     }
