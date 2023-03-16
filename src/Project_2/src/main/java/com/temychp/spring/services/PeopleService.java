@@ -62,7 +62,7 @@ public class PeopleService {
     }
 
     public List<Book> showBooksByPersonId(int id) {
-        Person PersonById = (Person) peopleRepository.findById(id).orElse(null);
+        Person PersonById = peopleRepository.findById(id).orElse(null);
         return booksRepository.findByOwner(PersonById);
     }
 

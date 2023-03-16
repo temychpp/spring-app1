@@ -11,7 +11,8 @@ CREATE TABLE Book(
     person_id int REFERENCES Person(id) ON DELETE SET NULL,
     name varchar(100) NOT NULL,
     author varchar(100) NOT NULL,
-    year_of_production int
+    year_of_production int,
+    date_of_rent TIMESTAMP
 );
 
 
@@ -35,6 +36,10 @@ VALUES
 ('Детство', 'Лев Толстой', 1852),
 ('Отрочество', 'Лев Толстой', 1854),
 ('Юность', 'Лев Толстой', 1857);
+
+select * from Person;
+
+select * from Book;
 
 drop table Person;
 drop table Book;

@@ -26,7 +26,7 @@ public class BooksController {
 
 
     @Autowired
-    public BooksController(BookService bookService, BookValidator bookValidator, PeopleService peopleService){
+    public BooksController(BookService bookService, BookValidator bookValidator, PeopleService peopleService) {
         this.bookService = bookService;
         this.bookValidator = bookValidator;
         this.peopleService = peopleService;
@@ -56,7 +56,7 @@ public class BooksController {
     }
 
     @GetMapping("/new")
-    public String newPerson(@ModelAttribute("book") Book book) {
+    public String newBook(@ModelAttribute("book") Book book) {
         return "books/new";
     }
 
@@ -92,15 +92,16 @@ public class BooksController {
         return "redirect:/books";
     }
 
+//
     @PatchMapping("/{id}/giveBookToLibrary")
     public String giveBookToLibrary(@PathVariable("id") int id) {
-     //   bookDAO.giveBookToLibrary(id);
+        bookService.giveBookToLibrary(id);
         return "redirect:/books/{id}";
     }
 
     @PatchMapping("/{id}/giveBookToPerson")
     public String giveBookToPerson(@PathVariable("id") int id, @ModelAttribute("person") Person person) {
-     //   bookDAO.giveBookToPerson(id, person);
+        bookService.giveBookToPerson(id, person);
         return "redirect:/books/{id}";
     }
 

@@ -58,4 +58,34 @@ public class BookService {
         return booksRepository.findByName(bookName);
     }
 
+
+
+    public void giveBookToPerson(int id, Person personWhichTakeBook) {
+
+        Book book = booksRepository.findById(id).orElse(null);
+
+//        personWhichTakeBook.
+//        jdbcTemplate.update("UPDATE Book SET person_id=? WHERE id=?",
+//                personWhichTakeBook.getId(), id);
+    }
+
+    public void giveBookToLibrary(int id) {
+
+       Book book = booksRepository.findById(id).orElse(null);
+
+//       book.setOwner("null")=;
+
+//       Person owner = book.setOwner(getP); booksRepository.findByOwner();
+//        set
+
+
+        booksRepository.save(book);
+
+//        jdbcTemplate.update("UPDATE Book SET person_id=null WHERE id=?",id);
+    }
+
+
+
+
+
 }

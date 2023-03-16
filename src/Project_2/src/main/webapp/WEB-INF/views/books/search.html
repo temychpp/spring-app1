@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Поиск книги</title>
+</head>
+<body>
+<a style="color:black" href="/people">Люди</a>___
+<a style="color:black" href="/books">Книги</a>
+<hr/>
+<a th:text="${book.getName()}+', '+ ${book.getAuthor()}  +', '+${book.getYearOfProduction()}">VALUE</a>
+<hr/>
+<div th:if="${booktaker}">
+    <span>книга находится у </span>
+    <a th:text="${booktaker.getName()}">bookTaker</a>
+    <form th:method="PATCH" th:action="@{/books/{id}/giveBookToLibrary/(id=${book.getId()})}">
+        <input type="submit" value="Вернуть книгу"/>
+    </form>
+</div>
+
+<div th:if="${people}">
+    <span>Книга свободна. Кому ее назначить?</span>
+    <form th:method="PATCH" th:action="@{/books/{id}/giveBookToPerson/(id=${book.getId()})}">
+        <label for="person">Выберите человека:</label>
+        <select th:object="${person}" th:field="*{id}" id="person">
+            <option th:each="person: ${people}"
+                    th:value="${person.getId()}"
+                    th:text="${person.getName()}">
+            </option>
+        </select>
+        <input type="submit" value="Взять книгу"/>
+    </form>
+</div>
+
+<hr/>
+
+<form th:method="PATCH" th:action="@{/books/search/}" th:object="${book}">
+    <label for="name">Введите название книги: </label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
+    <input type="submit" value="Искать книгу!"/>
+</form>
+
+
+
+
+</body>
+</html>
