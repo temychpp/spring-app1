@@ -1,7 +1,9 @@
 package com.temychp.spring.util;
 
-import com.temychp.spring.dao.BookDAO;
+//import com.temychp.spring.dao.BookDAO;
 import com.temychp.spring.models.Book;
+import com.temychp.spring.services.BookService;
+import com.temychp.spring.services.PeopleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -10,11 +12,11 @@ import org.springframework.validation.Validator;
 @Component
 public class BookValidator implements Validator {
 
-    private final BookDAO bookDAO;
+    private final BookService bookService;
 
     @Autowired
-    public BookValidator(BookDAO bookDAO) {
-        this.bookDAO = bookDAO;
+    public BookValidator(BookService bookService) {
+        this.bookService = bookService;
     }
 
     @Override
