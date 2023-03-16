@@ -2,7 +2,6 @@ package com.temychp.spring.util;
 
 import com.temychp.spring.models.Book;
 import com.temychp.spring.services.BookService;
-import com.temychp.spring.services.PeopleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;

@@ -43,15 +43,15 @@ public class BooksController {
     public String show(@PathVariable("id") int id, Model model, @ModelAttribute("person") Person person) {
         model.addAttribute("book", bookService.findOne(id));
 
-//        model.addAttribute("person", bookDAO.showBookTaker(id));
-//
-//        Optional<Person> bookTaker = bookDAO.showBookTaker(id);
-//
-//        if (bookTaker.isPresent()) {
-//            model.addAttribute("booktaker", bookTaker.get());
-//        } else {
-//            model.addAttribute("people", peopleService.findALL());
-//        }
+        model.addAttribute("person", bookService.showBookTaker(id));
+
+        Optional<Person> bookTaker = bookService.showBookTaker(id);
+
+        if (bookTaker.isPresent()) {
+            model.addAttribute("booktaker", bookTaker.get());
+        } else {
+            model.addAttribute("people", peopleService.findALL());
+        }
         return "books/show";
     }
 

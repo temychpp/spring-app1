@@ -3,6 +3,7 @@ package com.temychp.spring.services;
 import com.temychp.spring.models.Book;
 import com.temychp.spring.models.Person;
 import com.temychp.spring.repositories.BooksRepository;
+import com.temychp.spring.repositories.PeopleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,10 +16,13 @@ import java.util.Optional;
 public class BookService {
 
     private final BooksRepository booksRepository;
+    private final PeopleRepository peopleRepository;
+
 
     @Autowired
-    public BookService(BooksRepository booksRepository) {
+    public BookService(BooksRepository booksRepository, PeopleRepository peopleRepository) {
         this.booksRepository = booksRepository;
+        this.peopleRepository = peopleRepository;
     }
 
     public List<Book> findAll() {
@@ -65,7 +69,9 @@ public class BookService {
     public void giveBookToPerson(int id, Person personWhichTakeBook) {
 
         Book book = booksRepository.findById(id).orElse(null);
-
+//        assert book != null;
+        book.setOwner(personWhichTakeBook);
+        booksRepository.save(book);
 //        personWhichTakeBook.
 //        jdbcTemplate.update("UPDATE Book SET person_id=? WHERE id=?",
 //                personWhichTakeBook.getId(), id);
@@ -74,19 +80,30 @@ public class BookService {
     public void giveBookToLibrary(int id) {
 
        Book book = booksRepository.findById(id).orElse(null);
+        assert book != null;
+        book.setOwner(null);
 
+        booksRepository.save(book);
+
+//        booksRepository.findByOwner(id);
 //       book.setOwner("null")=;
 
 //       Person owner = book.setOwner(getP); booksRepository.findByOwner();
 //        set
 
 
-        booksRepository.save(book);
+
 
 //        jdbcTemplate.update("UPDATE Book SET person_id=null WHERE id=?",id);
     }
 
+    public Optional<Person> showBookTaker(int id) {
+//        return jdbcTemplate.query("SELECT Person.* from Book join Person on Person.id = Book.person_id where Book.id=?",
+//                        new Object[]{id}, new BeanPropertyRowMapper<>(Person.class))
+//                .stream().findAny();
 
+        return peopleRepository.findById(id);
+    }
 
 
 
