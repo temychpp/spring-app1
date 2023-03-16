@@ -56,9 +56,8 @@ public class PeopleService {
         return foundPerson.orElse(null);
     }
 
-    public Person findPersonByName(String name) {
-        Optional<Person> person = peopleRepository.findPersonByName(name);
-        return person.orElse(null) ;
+    public Optional<Person> findPersonByName(String name) {
+        return peopleRepository.findPersonByName(name);
     }
 
     public List<Book> showBooksByPersonId(int id) {

@@ -1,6 +1,5 @@
 package com.temychp.spring.util;
 
-//import com.temychp.spring.dao.BookDAO;
 import com.temychp.spring.models.Book;
 import com.temychp.spring.services.BookService;
 import com.temychp.spring.services.PeopleService;
@@ -27,7 +26,7 @@ public class BookValidator implements Validator {
     @Override
     public void validate(Object o, Errors errors) {
         Book book = (Book) o;
-//        if (bookDAO.showBookByName(book.getName()).isPresent())
-//            errors.rejectValue("name", "", "This book name is already taken booknamenotvalid");
+        if (bookService.findBookByName(book.getName()).isPresent())
+            errors.rejectValue("name", "", "This book name is already taken booknamenotvalid");
     }
 }

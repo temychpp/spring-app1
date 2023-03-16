@@ -18,7 +18,7 @@ public class Person {
 
     @NotEmpty(message = "name should not be empty")
     @Pattern(regexp = "[А-Я][а-я]+\\s+[А-Я][а-я]+\\s[А-Я][а-я]+",message = "incorrect name")
-    @Size(min = 5, max = 30, message = "name should be between 10 and 30 characters")
+    @Size(min = 5, max = 50, message = "name should be between 5 and 50 characters")
     @Column(name = "name")
     private String name;
 

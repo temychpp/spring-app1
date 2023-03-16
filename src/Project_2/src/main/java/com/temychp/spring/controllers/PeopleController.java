@@ -1,6 +1,5 @@
 package com.temychp.spring.controllers;
 
-//import com.temychp.spring.dao.PersonDAO;
 import com.temychp.spring.models.Person;
 import com.temychp.spring.services.BookService;
 import com.temychp.spring.services.PeopleService;

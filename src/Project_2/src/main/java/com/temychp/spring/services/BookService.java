@@ -58,7 +58,9 @@ public class BookService {
         return booksRepository.findByName(bookName);
     }
 
-
+    public Optional<Book> findBookByName(String name) {
+        return booksRepository.findBookByName(name);
+    }
 
     public void giveBookToPerson(int id, Person personWhichTakeBook) {
 
