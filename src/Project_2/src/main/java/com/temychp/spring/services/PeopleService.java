@@ -1,13 +1,14 @@
 package com.temychp.spring.services;
 
 //import com.temychp.spring.models.Mood;
+import com.temychp.spring.models.Book;
 import com.temychp.spring.models.Person;
+import com.temychp.spring.repositories.BooksRepository;
 import com.temychp.spring.repositories.PeopleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,10 +17,13 @@ import java.util.Optional;
 public class PeopleService {
 
     private final PeopleRepository peopleRepository;
+    private final BooksRepository booksRepository;
 
     @Autowired
-    public PeopleService(PeopleRepository peopleRepository) {
+    public PeopleService(PeopleRepository peopleRepository,
+                         BooksRepository booksRepository) {
         this.peopleRepository = peopleRepository;
+        this.booksRepository = booksRepository;
     }
 
     public List<Person> findALL() {
@@ -38,8 +42,6 @@ public class PeopleService {
 
     @Transactional
     public void save(Person person) {
-//        person.setCreatedAt(new Date());
-//        person.setMood(Mood.CALM);
         peopleRepository.save(person);
     }
 
@@ -59,4 +61,10 @@ public class PeopleService {
         Optional<Person> person = peopleRepository.findPersonByName(name);
         return person.orElse(null);
     }
+
+    public List<Book> showBooksByPersonId(Person owner) {
+      return booksRepository.findByOwner(owner);
+
+    }
+
 }

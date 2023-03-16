@@ -21,29 +21,26 @@ public class PeopleController {
 
     private final PeopleService peopleService;
     private final BookService bookService;
-    private final PersonDAO personDAO;
+
     private final PersonValidator personValidator;
 
     @Autowired
-    public PeopleController(PeopleService peopleService, PersonValidator personValidator, BookService bookService, PersonDAO personDAO) {
+    public PeopleController(PeopleService peopleService, PersonValidator personValidator, BookService bookService) {
         this.peopleService = peopleService;
-        this.bookService = bookService;
-        this.personDAO = personDAO;
         this.personValidator = personValidator;
+        this.bookService = bookService;
     }
 
     @GetMapping()
     public String index(Model model) {
-
         model.addAttribute("people", peopleService.findALL());
-
         return "people/index";
     }
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model) {
         model.addAttribute("person", peopleService.findOne(id));
-        model.addAttribute("books", personDAO.showBooksWithPersonId(id));
+//        model.addAttribute("books", personDAO.showBooksWithPersonId(id));
         return "people/show";
     }
 

@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@Transactional
+@Transactional(readOnly = true)
 public class BookService {
 
     private final BooksRepository booksRepository;
@@ -19,7 +19,6 @@ public class BookService {
     @Autowired
     public BookService(BooksRepository booksRepository) {
         this.booksRepository = booksRepository;
-
     }
 
     public List<Book> findAll() {
@@ -31,6 +30,22 @@ public class BookService {
         return foundBook.orElse(null);
     }
 
+    @Transactional
+    public void save(Book book) {
+        booksRepository.save(book);
+    }
+
+    @Transactional
+    public void update(int id, Book updatedBook) {
+        updatedBook.setId(id);
+        booksRepository.save(updatedBook);
+    }
+
+    @Transactional
+    public void delete(int id) {
+        booksRepository.deleteById(id);
+    }
+
     public List<Book> findByName(String bookName){
         return booksRepository.findByName(bookName);
     }
@@ -38,4 +53,6 @@ public class BookService {
     public List<Book> findByOwner (Person owner){
         return booksRepository.findByOwner(owner);
     }
+
+
 }
