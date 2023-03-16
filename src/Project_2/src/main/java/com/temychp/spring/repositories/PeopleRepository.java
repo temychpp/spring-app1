@@ -5,11 +5,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface PeopleRepository extends JpaRepository<Person, Integer> {
 
-    List<Person> findByName(String name);
+   // List<Person> findByName(String name);
 
     List<Person> findByNameOrderByAge(String name);
 
@@ -19,5 +20,7 @@ public interface PeopleRepository extends JpaRepository<Person, Integer> {
 
     List<Person> findByNameOrEmail(String name, String email);
 
-    Person findPersonByName (String name);
+    Optional<Person> findPersonByName (String name);
+
+    Optional<Person> findByName (String name);
 }

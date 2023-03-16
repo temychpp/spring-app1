@@ -22,7 +22,6 @@ public class BookService {
 
     }
 
-
     public List<Book> findAll() {
         return booksRepository.findAll();
     }
@@ -32,12 +31,11 @@ public class BookService {
         return foundBook.orElse(null);
     }
 
-
     public List<Book> findByName(String bookName){
         return booksRepository.findByName(bookName);
     }
 
-//    public List<Book> findByOwner (Person owner){
-//        return booksRepository.findByOwner(owner);
-//    }
+    public List<Book> findByOwner (Person owner){
+        return booksRepository.findByOwner(owner);
+    }
 }

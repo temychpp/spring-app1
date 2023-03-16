@@ -31,9 +31,9 @@ public class PeopleService {
         return foundPerson.orElse(null);
     }
 
-    public List<Person> findByName(String name) {
-        List<Person> foundPerson= peopleRepository.findByName(name);
-        return foundPerson;
+    public Person findByName(String name) {
+        Optional<Person> foundPerson= peopleRepository.findByName(name);
+        return foundPerson.orElse(null);
     }
 
     @Transactional
@@ -55,8 +55,8 @@ public class PeopleService {
     }
 
 
-    public Optional<People> findPersonByName(String name) {
-        People person = peopleRepository.findPersonByName(name);
-        return person;
+    public Person findPersonByName(String name) {
+        Optional<Person> person = peopleRepository.findPersonByName(name);
+        return person.orElse(null);
     }
 }
