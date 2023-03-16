@@ -26,7 +26,7 @@ public class PersonValidator implements Validator {
     @Override
     public void validate(Object o, Errors errors) {
         Person person = (Person) o;
-//        if (peopleService.findPersonByName(person.getName()).isPresent())
+        if (peopleService.findPersonByName(person.getName()).isPresent())
             errors.rejectValue("name", "", "This person name is already taken personnamenotvalid");
     }
 }

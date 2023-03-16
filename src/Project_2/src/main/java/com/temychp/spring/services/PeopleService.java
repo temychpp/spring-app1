@@ -35,11 +35,6 @@ public class PeopleService {
         return foundPerson.orElse(null);
     }
 
-    public Person findByName(String name) {
-        Optional<Person> foundPerson= peopleRepository.findByName(name);
-        return foundPerson.orElse(null);
-    }
-
     @Transactional
     public void save(Person person) {
         peopleRepository.save(person);
@@ -56,15 +51,19 @@ public class PeopleService {
         peopleRepository.deleteById(id);
     }
 
+    public Person findByName(String name) {
+        Optional<Person> foundPerson= peopleRepository.findByName(name);
+        return foundPerson.orElse(null);
+    }
 
     public Person findPersonByName(String name) {
         Optional<Person> person = peopleRepository.findPersonByName(name);
-        return person.orElse(null);
+        return person.orElse(null) ;
     }
 
-    public List<Book> showBooksByPersonId(Person owner) {
-      return booksRepository.findByOwner(owner);
-
+    public List<Book> showBooksByPersonId(int id) {
+        Person PersonById = (Person) peopleRepository.findById(id).orElse(null);
+        return booksRepository.findByOwner(PersonById);
     }
 
 }

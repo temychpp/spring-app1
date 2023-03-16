@@ -46,13 +46,16 @@ public class BookService {
         booksRepository.deleteById(id);
     }
 
-    public List<Book> findByName(String bookName){
-        return booksRepository.findByName(bookName);
-    }
+    public List<Book> findByNameStartingWith(String startingWith){
+        return booksRepository.findByNameStartingWith(startingWith);
+    };
 
     public List<Book> findByOwner (Person owner){
         return booksRepository.findByOwner(owner);
     }
 
+    public List<Book> findByName(String bookName){
+        return booksRepository.findByName(bookName);
+    }
 
 }

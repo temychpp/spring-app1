@@ -40,7 +40,7 @@ public class PeopleController {
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model) {
         model.addAttribute("person", peopleService.findOne(id));
-//        model.addAttribute("books", personDAO.showBooksWithPersonId(id));
+        model.addAttribute("books", peopleService.showBooksByPersonId(id));
         return "people/show";
     }
 
@@ -50,7 +50,8 @@ public class PeopleController {
     }
 
     @PostMapping()
-    public String create(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult) {
+    public String create(@ModelAttribute("person")
+                         @Valid Person person, BindingResult bindingResult) {
         personValidator.validate(person, bindingResult);
         if (bindingResult.hasErrors())
             return "people/new";
@@ -65,7 +66,8 @@ public class PeopleController {
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult,
+    public String update(@ModelAttribute("person")
+                         @Valid Person person, BindingResult bindingResult,
                          @PathVariable("id") int id) {
         personValidator.validate(person, bindingResult);
         if (bindingResult.hasErrors())

@@ -106,7 +106,7 @@ public class BooksController {
 
     @PatchMapping("/search")
     public String searchBookByName(@ModelAttribute("book") Book book) {
-//        bookService.findByNameStartingWith(String s);
+        bookService.findByNameStartingWith(book.getName());
         return "redirect:/books/search";
     }
 
