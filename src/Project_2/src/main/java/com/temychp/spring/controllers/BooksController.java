@@ -33,10 +33,24 @@ public class BooksController {
     }
 
     @GetMapping()
-    public String index(Model model) {
-        model.addAttribute("books", bookService.findAll());
+    public String index(
+            @RequestParam(value = "page", required = false) Integer page,
+            @RequestParam(value = "books_per_page", required = false) Integer booksPerPage,
+            @RequestParam(value = "sort_by_year", required = false) boolean sortByYear, Model model) {
 
-//            bookService.findByNameStartingWith();
+
+        if (!sortByYear || page == null || booksPerPage == null)
+            model.addAttribute("books", bookService.findAll());
+
+        else if (!sortByYear == false || page != null || booksPerPage != null
+        ) {
+            model.addAttribute("books", bookService.findAllAndPaginationSort(page, booksPerPage));
+        } else if (sortByYear == false || page != null || booksPerPage != null) {
+            model.addAttribute("books", bookService.findAllAndPagination(page, booksPerPage));
+        } else {
+            model.addAttribute("books", bookService.findAllAndSort());
+        }
+
         return "books/index";
     }
 
@@ -93,7 +107,7 @@ public class BooksController {
         return "redirect:/books";
     }
 
-//
+    //
     @PatchMapping("/{id}/giveBookToLibrary")
     public String giveBookToLibrary(@PathVariable("id") int id) {
         bookService.giveBookToLibrary(id);
@@ -106,11 +120,15 @@ public class BooksController {
         return "redirect:/books/{id}";
     }
 
-    @PatchMapping("/search")
+    @GetMapping("/search")
     public String searchBookByName(@ModelAttribute("book") Book book) {
+        return "books/search";
+    }
+
+    @PatchMapping("/search")
+    public String searchBookByName1(@ModelAttribute("book") Book book) {
         bookService.findByNameStartingWith(book.getName());
         return "redirect:/books/search";
     }
-
 
 }

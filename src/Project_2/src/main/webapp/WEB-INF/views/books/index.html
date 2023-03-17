@@ -6,7 +6,15 @@
 </head>
 <body>
 <a style="color:black" href="/people">Люди</a>___
-<a style="color:black" href="/books">Книги</a>
+<a style="color:black" href="/books">Книги</a>___
+<br/>
+<br/>
+<a style="color:black" href="/books/search">Поиск книги по названию</a>___
+<a style="color:black" href="/books?sort_by_year=true">Сортировка книги по году</a>___
+<a style="color:black" href="/books?page=1&books_per_page=3">Пагинация</a>___
+<a style="color:black" href="/books?page=1&books_per_page=3&sort_by_year=true">Пагинация и Сортировка</a>
+
+<!--th:action="@{/books/search/searchBookByName}-->
 <hr/>
 <div th:each="book : ${books}">
     <a th:href="@{/books/{id}(id=${book.getId()})}"

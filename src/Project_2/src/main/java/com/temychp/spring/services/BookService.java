@@ -6,6 +6,8 @@ import com.temychp.spring.repositories.BooksRepository;
 import com.temychp.spring.repositories.PeopleRepository;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,6 +31,19 @@ public class BookService {
     public List<Book> findAll() {
         return booksRepository.findAll();
     }
+
+    public List<Book> findAllAndPagination(int page, int booksPerPage) {
+        return booksRepository.findAll(PageRequest.of(page, booksPerPage)).getContent();
+    }
+
+    public List<Book> findAllAndSort() {
+        return booksRepository.findAll(Sort.by("yearOfProduction"));
+    }
+
+    public List<Book> findAllAndPaginationSort(int page, int booksPerPage) {
+        return booksRepository.findAll(PageRequest.of(page, booksPerPage, Sort.by("yearOfProduction") ) ).getContent();
+    }
+
 
     public Book findOne(int id) {
         Optional<Book> foundBook = booksRepository.findById(id);
@@ -92,15 +107,12 @@ public class BookService {
 //        return jdbcTemplate.query("SELECT Person.* from Book join Person on Person.id = Book.person_id where Book.id=?",
 //                        new Object[]{id}, new BeanPropertyRowMapper<>(Person.class))
 //                .stream().findAny();
-       Book book = booksRepository.findById(id).orElse(null);
+        Book book = booksRepository.findById(id).orElse(null);
 
         assert book != null;
-        Hibernate.initialize(book.getOwner());
-        Person person = book.getOwner();
+        Person person =  book.getOwner();
+
         int personId   =  person.getId();
         return peopleRepository.findById(personId);
     }
-
-
-
 }
