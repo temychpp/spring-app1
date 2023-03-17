@@ -36,7 +36,7 @@
 
 <hr/>
 
-<form th:method="PATCH" th:action="@{/books/search/}" th:object="${book}">
+<form th:method="PATCH" th:action="@{/books/search/searchBookByName}" th:object="${book}">
     <label for="name">Введите название книги: </label>
     <input type="text" th:field="*{name}" id="name"/>
     <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>

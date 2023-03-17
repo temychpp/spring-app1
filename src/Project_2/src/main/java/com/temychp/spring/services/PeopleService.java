@@ -5,10 +5,12 @@ import com.temychp.spring.models.Book;
 import com.temychp.spring.models.Person;
 import com.temychp.spring.repositories.BooksRepository;
 import com.temychp.spring.repositories.PeopleRepository;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,8 +63,17 @@ public class PeopleService {
     }
 
     public List<Book> showBooksByPersonId(int id) {
-        Person PersonById = peopleRepository.findById(id).orElse(null);
-        return booksRepository.findByOwner(PersonById);
+       Optional <Person> personById = peopleRepository.findById(id);
+
+       if (personById.isPresent()){
+           Hibernate.initialize(personById.get().getBooks());
+          return  personById.get().getBooks();
+        }
+       else return Collections.emptyList();
     }
+
+
+
+
 
 }

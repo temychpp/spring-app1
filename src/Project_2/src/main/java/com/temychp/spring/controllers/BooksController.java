@@ -36,6 +36,7 @@ public class BooksController {
     public String index(Model model) {
         model.addAttribute("books", bookService.findAll());
 
+//            bookService.findByNameStartingWith();
         return "books/index";
     }
 
