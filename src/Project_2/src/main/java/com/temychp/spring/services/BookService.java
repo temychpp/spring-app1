@@ -11,6 +11,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,7 +43,7 @@ public class BookService {
     }
 
     public List<Book> findAllAndPaginationSort(int page, int booksPerPage) {
-        return booksRepository.findAll(PageRequest.of(page, booksPerPage, Sort.by("yearOfProduction") ) ).getContent();
+        return booksRepository.findAll(PageRequest.of(page, booksPerPage, Sort.by("yearOfProduction"))).getContent();
     }
 
 
@@ -66,16 +68,18 @@ public class BookService {
         booksRepository.deleteById(id);
     }
 
-    public List<Book> findByNameStartingWith(String startingWith){
+    public List<Book> findByNameStartingWith(String startingWith) {
         return booksRepository.findByNameStartingWith(startingWith);
-    };
+    }
+
+    ;
 
     @Transactional
-    public List<Book> findByOwner (Person owner){
+    public List<Book> findByOwner(Person owner) {
         return booksRepository.findByOwner(owner);
     }
 
-    public List<Book> findByName(String bookName){
+    public List<Book> findByName(String bookName) {
         return booksRepository.findByName(bookName);
     }
 
@@ -88,18 +92,25 @@ public class BookService {
         Book book = booksRepository.findById(id).orElse(null);
         assert book != null;
         book.setOwner(personWhichTakeBook);
-      //  booksRepository.save(book);
+        book.setDateOfRent(new Date());
+        System.out.println("Просрочена?" +book.isDelay());
+        //  booksRepository.save(book);
 //        personWhichTakeBook.
 //        jdbcTemplate.update("UPDATE Book SET person_id=? WHERE id=?",
 //                personWhichTakeBook.getId(), id);
     }
+
     @Transactional
     public void giveBookToLibrary(int id) {
-       Book book = booksRepository.findById(id).orElse(null);
+        Book book = booksRepository.findById(id).orElse(null);
         assert book != null;
         book.setOwner(null);
-      //  booksRepository.save(book);
+        book.setDateOfRent(null);
+        System.out.println("Просрочена?" +book.isDelay());
+        booksRepository.save(book);
+
 //        jdbcTemplate.update("UPDATE Book SET person_id=null WHERE id=?",id);
+
     }
 
     @Transactional
@@ -108,11 +119,13 @@ public class BookService {
 //                        new Object[]{id}, new BeanPropertyRowMapper<>(Person.class))
 //                .stream().findAny();
         Book book = booksRepository.findById(id).orElse(null);
-
         assert book != null;
-        Person person =  book.getOwner();
 
-        int personId   =  person.getId();
-        return peopleRepository.findById(personId);
+        Optional<Person> person = Optional.ofNullable(book.getOwner());
+        if (person.isPresent()) {
+            int personId = person.get().getId();
+            return peopleRepository.findById(personId);
+        } else return peopleRepository.findById(id);
     }
+
 }

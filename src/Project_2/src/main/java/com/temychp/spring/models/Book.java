@@ -5,6 +5,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -40,6 +41,8 @@ public class Book {
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateOfRent;
 
+    @Transient
+    private boolean delay;
 
     public Book() {
     }
@@ -49,6 +52,11 @@ public class Book {
         this.name = name;
         this.author = author;
         this.yearOfProduction = yearOfProduction;
+    }
+
+    public boolean isDelay(Date dateOfRent){
+        Date now = new Date();
+        return dateOfRent.getTime() - now.getTime() > 10;
     }
 
     public int getYearOfProduction() {
@@ -89,6 +97,22 @@ public class Book {
 
     public void setOwner(Person owner) {
         this.owner = owner;
+    }
+
+    public Date getDateOfRent() {
+        return dateOfRent;
+    }
+
+    public void setDateOfRent(Date dateOfRent) {
+        this.dateOfRent = dateOfRent;
+    }
+
+    public boolean isDelay() {
+        return delay;
+    }
+
+    public void setDelay(boolean delay) {
+        this.delay = delay;
     }
 
     @Override

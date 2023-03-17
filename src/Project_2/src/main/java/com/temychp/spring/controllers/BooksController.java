@@ -36,20 +36,20 @@ public class BooksController {
     public String index(
             @RequestParam(value = "page", required = false) Integer page,
             @RequestParam(value = "books_per_page", required = false) Integer booksPerPage,
-            @RequestParam(value = "sort_by_year", required = false) boolean sortByYear, Model model) {
+            @RequestParam(value = "sort_by_year", required = false) boolean sortByYear,
+            Model model) {
 
-
-        if (!sortByYear || page == null || booksPerPage == null)
-            model.addAttribute("books", bookService.findAll());
-
-        else if (!sortByYear == false || page != null || booksPerPage != null
-        ) {
+        if (sortByYear && page != null && booksPerPage != null)
             model.addAttribute("books", bookService.findAllAndPaginationSort(page, booksPerPage));
-        } else if (sortByYear == false || page != null || booksPerPage != null) {
-            model.addAttribute("books", bookService.findAllAndPagination(page, booksPerPage));
-        } else {
+
+        else if (sortByYear && page == null && booksPerPage == null)
             model.addAttribute("books", bookService.findAllAndSort());
-        }
+
+        else if (!sortByYear && page != null && booksPerPage != null)
+            model.addAttribute("books", bookService.findAllAndPagination(page, booksPerPage));
+
+        else
+            model.addAttribute("books", bookService.findAll());
 
         return "books/index";
     }
@@ -107,7 +107,6 @@ public class BooksController {
         return "redirect:/books";
     }
 
-    //
     @PatchMapping("/{id}/giveBookToLibrary")
     public String giveBookToLibrary(@PathVariable("id") int id) {
         bookService.giveBookToLibrary(id);
@@ -126,8 +125,11 @@ public class BooksController {
     }
 
     @PatchMapping("/search")
-    public String searchBookByName1(@ModelAttribute("book") Book book) {
-        bookService.findByNameStartingWith(book.getName());
+    public String searchBookByName1(
+            @RequestParam(value = "name", required = false) String name,
+            @ModelAttribute("book") Book book, Model model) {
+
+        model.addAttribute("books", bookService.findByNameStartingWith(name));
         return "redirect:/books/search";
     }
 
