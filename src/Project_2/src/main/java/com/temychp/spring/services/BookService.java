@@ -94,13 +94,8 @@ public class BookService {
         Book book = booksRepository.findById(id).orElse(null);
         assert book != null;
         book.setOwner(personWhichTakeBook);
+        book.setDateOfRent(LocalDateTime.now());
         booksRepository.save(book);
-
-//        book.setDateOfRent(new LocalDateTime.now());
-        //  booksRepository.save(book);
-//        personWhichTakeBook.
-//        jdbcTemplate.update("UPDATE Book SET person_id=? WHERE id=?",
-//                personWhichTakeBook.getId(), id);
     }
 
     @Transactional
@@ -110,16 +105,10 @@ public class BookService {
         book.setOwner(null);
         book.setDateOfRent(null);
         booksRepository.save(book);
-
-//        jdbcTemplate.update("UPDATE Book SET person_id=null WHERE id=?",id);
-
     }
 
     @Transactional
     public Optional<Person> showBookTaker(int id) {
-//        return jdbcTemplate.query("SELECT Person.* from Book join Person on Person.id = Book.person_id where Book.id=?",
-//                        new Object[]{id}, new BeanPropertyRowMapper<>(Person.class))
-//                .stream().findAny();person
         Book book = booksRepository.findById(id).orElse(null);
         assert book != null;
 
@@ -129,5 +118,4 @@ public class BookService {
             return peopleRepository.findById(personId);
         } else return peopleRepository.findById(id);
     }
-
 }

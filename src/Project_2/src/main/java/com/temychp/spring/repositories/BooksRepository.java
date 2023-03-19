@@ -24,21 +24,4 @@ public interface BooksRepository extends JpaRepository<Book, Integer> {
 
     Optional<Book> findBookByName(String name);
 
-    List<Book> findAll(Sort var1);
-
-  //  Page<Integer> findAll(Pageable var1);
-
-
-//    @Query
-//    ("SELECT Person.\* from Book join Person on Person.id = Book.person_id where Book.id=?")
-//    Optional<Person> showBookTaker(int id);
-//        return jdbcTemplate.query("SELECT Person.* from Book join Person on Person.id = Book.person_id where Book.id=?",
-//                        new Object[]{id}, new BeanPropertyRowMapper<>(Person.class))
-//                .stream().findAny();
-
-//        return peopleRepository.findById(id);
-//    }
-
-
-
 }
