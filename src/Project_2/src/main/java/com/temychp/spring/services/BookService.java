@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -46,6 +47,9 @@ public class BookService {
         return booksRepository.findAll(PageRequest.of(page, booksPerPage, Sort.by("yearOfProduction"))).getContent();
     }
 
+//    public boolean getResultDelay(){
+//        return booksRepository.fResultDelay();
+//    }
 
     public Book findOne(int id) {
         Optional<Book> foundBook = booksRepository.findById(id);
@@ -72,8 +76,6 @@ public class BookService {
         return booksRepository.findByNameStartingWith(startingWith);
     }
 
-    ;
-
     @Transactional
     public List<Book> findByOwner(Person owner) {
         return booksRepository.findByOwner(owner);
@@ -92,8 +94,9 @@ public class BookService {
         Book book = booksRepository.findById(id).orElse(null);
         assert book != null;
         book.setOwner(personWhichTakeBook);
-        book.setDateOfRent(new Date());
-        System.out.println("Просрочена?" +book.isDelay());
+        booksRepository.save(book);
+
+//        book.setDateOfRent(new LocalDateTime.now());
         //  booksRepository.save(book);
 //        personWhichTakeBook.
 //        jdbcTemplate.update("UPDATE Book SET person_id=? WHERE id=?",
@@ -106,7 +109,6 @@ public class BookService {
         assert book != null;
         book.setOwner(null);
         book.setDateOfRent(null);
-        System.out.println("Просрочена?" +book.isDelay());
         booksRepository.save(book);
 
 //        jdbcTemplate.update("UPDATE Book SET person_id=null WHERE id=?",id);
@@ -117,7 +119,7 @@ public class BookService {
     public Optional<Person> showBookTaker(int id) {
 //        return jdbcTemplate.query("SELECT Person.* from Book join Person on Person.id = Book.person_id where Book.id=?",
 //                        new Object[]{id}, new BeanPropertyRowMapper<>(Person.class))
-//                .stream().findAny();
+//                .stream().findAny();person
         Book book = booksRepository.findById(id).orElse(null);
         assert book != null;
 

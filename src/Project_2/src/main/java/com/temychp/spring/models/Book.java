@@ -5,8 +5,10 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
+//import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -38,8 +40,8 @@ public class Book {
     private Person owner;
 
     @Column(name = "date_of_rent")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dateOfRent;
+//    @Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime dateOfRent;
 
     @Transient
     private boolean delay;
@@ -54,9 +56,12 @@ public class Book {
         this.yearOfProduction = yearOfProduction;
     }
 
-    public boolean isDelay(Date dateOfRent){
-        Date now = new Date();
-        return dateOfRent.getTime() - now.getTime() > 10;
+    public boolean resultDelay(LocalDateTime dateOfRent){
+        LocalDateTime now = LocalDateTime.now();
+        Duration duration = Duration.between(dateOfRent, now);
+        if (duration.toDays()> 10)
+            setDelay(true);
+        return delay;
     }
 
     public int getYearOfProduction() {
@@ -99,11 +104,11 @@ public class Book {
         this.owner = owner;
     }
 
-    public Date getDateOfRent() {
+    public LocalDateTime getDateOfRent() {
         return dateOfRent;
     }
 
-    public void setDateOfRent(Date dateOfRent) {
+    public void setDateOfRent(LocalDateTime dateOfRent) {
         this.dateOfRent = dateOfRent;
     }
 

@@ -39,7 +39,8 @@ VALUES
 
 select * from Person;
 
-select * from Book;
+select * from Book
+join Person P on Book.person_id = P.id;
 
 drop table Person;
 drop table Book;

@@ -18,9 +18,12 @@
 <div th:if="${!books.isEmpty()}">
     <span>Человек взял следующие книги:</span>
     <div th:each="book : ${books}">
-        <a th:text="${book.getName() + ', ' + book.getAuthor() + ', '+ book.getYearOfProduction()}">book</a>
+        <a th:text="${book.getName() + ', ' + book.getAuthor() + ', '+ book.getYearOfProduction() +' Просрочена? '+ book.resultDelay() }">book</a>
     </div>
 </div>
+
+
+
 <hr/>
 <form th:method="GET" th:action="@{/people/{id}/edit(id=${person.getId()})}">
     <input type="submit" value="Редактировать"/>
