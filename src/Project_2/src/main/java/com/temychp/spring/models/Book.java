@@ -56,7 +56,7 @@ public class Book {
         this.yearOfProduction = yearOfProduction;
     }
 
-    public boolean resultDelay(LocalDateTime dateOfRent){
+    public boolean resultDelay(){
         LocalDateTime now = LocalDateTime.now();
         Duration duration = Duration.between(dateOfRent, now);
         if (duration.toDays()> 10)
@@ -112,7 +112,7 @@ public class Book {
         this.dateOfRent = dateOfRent;
     }
 
-    public boolean isDelay() {
+    public boolean getDelay() {
         return delay;
     }
 

@@ -112,10 +112,11 @@ public class BookService {
         Book book = booksRepository.findById(id).orElse(null);
         assert book != null;
 
-        Optional<Person> person = Optional.ofNullable(book.getOwner());
-        if (person.isPresent()) {
-            int personId = person.get().getId();
-            return peopleRepository.findById(personId);
-        } else return peopleRepository.findById(id);
+        Person person = book.getOwner();
+
+        int personId = person.getId();
+
+        return peopleRepository.findById(personId);
+
     }
 }
