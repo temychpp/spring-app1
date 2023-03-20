@@ -1,6 +1,7 @@
 package com.temychp.spring.services;
 
 //import com.temychp.spring.models.Mood;
+
 import com.temychp.spring.models.Book;
 import com.temychp.spring.models.Person;
 import com.temychp.spring.repositories.BooksRepository;
@@ -19,13 +20,10 @@ import java.util.Optional;
 public class PeopleService {
 
     private final PeopleRepository peopleRepository;
-    private final BooksRepository booksRepository;
 
     @Autowired
-    public PeopleService(PeopleRepository peopleRepository,
-                         BooksRepository booksRepository) {
+    public PeopleService(PeopleRepository peopleRepository) {
         this.peopleRepository = peopleRepository;
-        this.booksRepository = booksRepository;
     }
 
     public List<Person> findall() {
@@ -54,7 +52,7 @@ public class PeopleService {
     }
 
     public Person findByName(String name) {
-        Optional<Person> foundPerson= peopleRepository.findByName(name);
+        Optional<Person> foundPerson = peopleRepository.findByName(name);
         return foundPerson.orElse(null);
     }
 
@@ -63,18 +61,15 @@ public class PeopleService {
     }
 
     public List<Book> showBooksByPersonId(int id) {
-       Optional <Person> personById = peopleRepository.findById(id);
-        if (personById.isPresent()){
-           Hibernate.initialize(personById.get().getBooks());
-          return  personById.get().getBooks();
-        }
-       else return Collections.emptyList();
+        Optional<Person> personById = peopleRepository.findById(id);
+        if (personById.isPresent()) {
+            Hibernate.initialize(personById.get().getBooks());
+            return personById.get().getBooks();
+        } else return Collections.emptyList();
     }
 
-
-    public void test () {
+    public void test() {
         System.out.println("inside test");
     }
-
 
 }

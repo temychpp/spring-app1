@@ -12,8 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,13 +20,10 @@ import java.util.Optional;
 public class BookService {
 
     private final BooksRepository booksRepository;
-    private final PeopleRepository peopleRepository;
-
 
     @Autowired
-    public BookService(BooksRepository booksRepository, PeopleRepository peopleRepository) {
+    public BookService(BooksRepository booksRepository) {
         this.booksRepository = booksRepository;
-        this.peopleRepository = peopleRepository;
     }
 
     public List<Book> findAll() {
@@ -46,10 +41,6 @@ public class BookService {
     public List<Book> findAllAndPaginationSort(int page, int booksPerPage) {
         return booksRepository.findAll(PageRequest.of(page, booksPerPage, Sort.by("yearOfProduction"))).getContent();
     }
-
-//    public boolean getResultDelay(){
-//        return booksRepository.fResultDelay();
-//    }
 
     public Book findOne(int id) {
         Optional<Book> foundBook = booksRepository.findById(id);
@@ -72,58 +63,33 @@ public class BookService {
         booksRepository.deleteById(id);
     }
 
-    public List<Book> findByNameStartingWithIgnoreCase(String startingWith) {
-        return booksRepository.findByNameStartingWithIgnoreCase(startingWith);
-    }
-
-    @Transactional
-    public List<Book> findByOwner(Person owner) {
-        return booksRepository.findByOwner(owner);
-    }
-
-    public List<Book> findByName(String bookName) {
-        return booksRepository.findByName(bookName);
-    }
-
     public Optional<Book> findBookByName(String name) {
         return booksRepository.findBookByName(name);
     }
 
     @Transactional
     public void giveBookToPerson(int id, Person personWhichTakeBook) {
-        Book book = booksRepository.findById(id).orElse(null);
-        if (book != null) {
-            book.setOwner(personWhichTakeBook);
-            book.setDateOfRent(LocalDateTime.now());
-            booksRepository.save(book);
+        Optional<Book> book = booksRepository.findById(id);
+        if (book.isPresent()) {
+            Hibernate.initialize(book.get());
+            book.get().setOwner(personWhichTakeBook);
+            book.get().setDateOfRent(LocalDateTime.now());
+            booksRepository.save(book.get());
         }
     }
 
     @Transactional
     public void giveBookToLibrary(int id) {
-        Book book = booksRepository.findById(id).orElse(null);
-        if (book != null) {
-            book.setOwner(null);
-            book.setDateOfRent(null);
-            booksRepository.save(book);
+        Optional<Book> book = booksRepository.findById(id);
+        if (book.isPresent()) {
+            Hibernate.initialize(book.get());
+            book.get().setOwner(null);
+            book.get().setDateOfRent(null);
+            booksRepository.save(book.get());
         }
     }
 
-    @Transactional
-    public Optional<Person> showBookTaker(int id) {
-        Book book = booksRepository.findById(id).orElse(null);
-        assert book != null;
-
-        Person person = book.getOwner();
-
-        assert person != null;
-        int personId = person.getId();
-
-        return peopleRepository.findById(personId);
-
+    public List<Book> searchBooks(String startString) {
+        return booksRepository.findByNameStartingWithIgnoreCase(startString);
     }
-
-//    public List<Book> s
-
-
 }

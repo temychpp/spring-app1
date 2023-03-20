@@ -1,7 +1,6 @@
 package com.temychp.spring.controllers;
 
 import com.temychp.spring.models.Person;
-import com.temychp.spring.services.BookService;
 import com.temychp.spring.services.PeopleService;
 import com.temychp.spring.util.PersonValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,15 +18,13 @@ public class PeopleController {
 
 
     private final PeopleService peopleService;
-    private final BookService bookService;
 
     private final PersonValidator personValidator;
 
     @Autowired
-    public PeopleController(PeopleService peopleService, PersonValidator personValidator, BookService bookService) {
+    public PeopleController(PeopleService peopleService, PersonValidator personValidator) {
         this.peopleService = peopleService;
         this.personValidator = personValidator;
-        this.bookService = bookService;
     }
 
     @GetMapping()

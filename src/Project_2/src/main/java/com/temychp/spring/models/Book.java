@@ -22,12 +22,12 @@ public class Book {
 
     @NotEmpty(message = "Name should not be empty")
     @Size(min = 1, max = 30, message = "name should be between 1 and 30 characters")
-    @Pattern(regexp = "[А-Яа-я\\s]+",message = "incorrect name")
+    @Pattern(regexp = "[А-Яа-я\\s]+", message = "incorrect name")
     @Column(name = "name")
     private String name;
 
     @NotEmpty(message = "Author should not be empty")
-    @Pattern(regexp = "[А-Я][а-я]+\\s+[А-Я][а-я]+",message = "incorrect name")
+    @Pattern(regexp = "[А-Я][а-я]+\\s+[А-Я][а-я]+", message = "incorrect name")
     @Column(name = "author")
     private String author;
 
@@ -56,10 +56,10 @@ public class Book {
         this.yearOfProduction = yearOfProduction;
     }
 
-    public boolean resultDelay(){
+    public boolean resultDelay() {
         LocalDateTime now = LocalDateTime.now();
         Duration duration = Duration.between(dateOfRent, now);
-        if (duration.toDays()> 10)
+        if (duration.toDays() > 10)
             setDelay(true);
         return delay;
     }

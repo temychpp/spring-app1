@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/books")
@@ -65,7 +66,7 @@ public class BooksController {
 //        if (bookTaker.isPresent()) {
 //            model.addAttribute("booktaker", bookTaker.get());
 //        } else {
-//            model.addAttribute("people", peopleService.findALL());
+//            model.addAttribute("people", peopleService.findall());
 //        }
 //        return "books/show";
 //    }
@@ -82,10 +83,6 @@ public class BooksController {
         }
         return "books/show";
     }
-
-
-
-
 
     @GetMapping("/new")
     public String newBook(@ModelAttribute("book") Book book) {
@@ -137,25 +134,12 @@ public class BooksController {
     }
 
     @GetMapping("/search")
-    public String searchBookByName(@ModelAttribute("book") Book book) {
+    public String searchBookByName(@RequestParam(required = false, defaultValue = "") String startString,
+                             Model model) {
+        model.addAttribute("startString", startString);
+        if (!startString.isEmpty()) {
+            model.addAttribute("books", bookService.searchBooks(startString));
+        }
         return "books/search";
     }
-
-    @PatchMapping("/search")
-    public String searchBookByName1( Model model,
-            @RequestParam(value = "name", required = false) String name,
-            @ModelAttribute("book") Book book,
-            @ModelAttribute("person") Person person) {
-
-//                if (bookService.findByNameStartingWith(name).isEmpty());
-//                    boolean result =false;
-
-
-//                            model.addAttribute("book", bookService.findOne(id));
-//        model.addAttribute("person", bookService.showBookTaker(id));
-
-        model.addAttribute("books", bookService.findByNameStartingWithIgnoreCase(name));
-        return "redirect:/books/search";
-    }
-
 }

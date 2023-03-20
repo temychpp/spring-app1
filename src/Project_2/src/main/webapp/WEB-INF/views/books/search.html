@@ -9,22 +9,33 @@
 <a style="color:black" href="/books">Книги</a>
 <hr/>
 
-<form th:method="PATCH" th:action="@{/books/search/searchBookByName1}" th:object="${book}">
-    <label for="name">Введите название книги: </label>
-    <input type="text" th:field="*{name}" id="name"/>
-    <input type="submit" value="Искать книгу!"/>
-</form>
+<div class="frame">
+    <form th:method="GET" th:action="@{/books/search}">
+        <label for="startString">Введите название книги:</label>
+        <input th:type="text" id="startString" th:name="startString">
+        <br/>
+        <input type="submit" class="button" value="Искать книгу!">
+    </form>
 
-<div th:if="${books.isEmpty()}">
-    <span>Книги с таким названием нет!</span>
-</div>
-
-<div th:if="${!books.isEmpty()}">
-    <span>Найдены следующие книги:</span>
-    <div th:each="book : ${books}">
-        <a th:text="${book.getName() + ', ' + book.getAuthor() + ', '+ book.getYearOfProduction()}">book</a>
+    <div th:if="${books}">
+        <div th:if="${books.isEmpty()}">
+            <br>
+            <p>Книги с таким названием нет!</p>
+            <br>
+        </div>
+        <div th:each="book : ${books}">
+            <br>
+            <p th:text="${book.getName()} + ', ' + ${book.getAuthor()} + ', ' + ${book.getYearOfProduction()}">book</p>
+            <div th:if="${book.getOwner()}">
+                <p th:text="'Книга сейчас у: ' + ${book.getOwner().getName()}">owner</p>
+            </div>
+            <div th:unless="${book.getOwner()}">
+                <p th:text="'Книга свободна'">no owner</p>
+            </div>
+            <br>
+        </div>
     </div>
+    <hr/>
 </div>
-
 </body>
 </html>
