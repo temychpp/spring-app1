@@ -24,12 +24,8 @@
         <div th:if="${!book.resultDelay()}">
         <a style="color:lawngreen"  th:text="${book.getName() + ', ' + book.getAuthor() + ', '+ book.getYearOfProduction()}">book</a>
         </div>
-
     </div>
 </div>
-
-
-
 <hr/>
 <form th:method="GET" th:action="@{/people/{id}/edit(id=${person.getId()})}">
     <input type="submit" value="Редактировать"/>

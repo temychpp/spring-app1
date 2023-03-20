@@ -28,7 +28,7 @@ public class PeopleService {
         this.booksRepository = booksRepository;
     }
 
-    public List<Person> findALL() {
+    public List<Person> findall() {
         return peopleRepository.findAll();
     }
 
@@ -72,7 +72,9 @@ public class PeopleService {
     }
 
 
-
+    public void test () {
+        System.out.println("inside test");
+    }
 
 
 }

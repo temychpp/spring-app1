@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -18,7 +19,7 @@ public interface BooksRepository extends JpaRepository<Book, Integer> {
 
     List<Book> findByName(String name);
 
-    List<Book> findByNameStartingWith(String startingWith);
+    List<Book> findByNameStartingWithIgnoreCase(String startingWith);
 
     List<Book> findByOwner(Person owner);
 

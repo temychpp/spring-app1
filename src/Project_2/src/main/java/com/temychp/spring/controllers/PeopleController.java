@@ -11,7 +11,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.time.LocalDateTime;
 
 
 @Controller
@@ -33,7 +32,9 @@ public class PeopleController {
 
     @GetMapping()
     public String index(Model model) {
-        model.addAttribute("people", peopleService.findALL());
+        model.addAttribute("people", peopleService.findall());
+
+        peopleService.test();
         return "people/index";
     }
 

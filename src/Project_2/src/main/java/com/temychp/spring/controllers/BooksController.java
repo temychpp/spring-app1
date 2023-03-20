@@ -12,7 +12,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/books")
@@ -54,21 +53,39 @@ public class BooksController {
         return "books/index";
     }
 
+//    @GetMapping("/{id}")
+//    public String show(@PathVariable("id") int id, Model model,
+//                       @ModelAttribute("person") Person person) {
+//        model.addAttribute("book", bookService.findOne(id));
+//
+//        model.addAttribute("person", bookService.showBookTaker(id));
+//
+//        Optional<Person> bookTaker = bookService.showBookTaker(id);
+//
+//        if (bookTaker.isPresent()) {
+//            model.addAttribute("booktaker", bookTaker.get());
+//        } else {
+//            model.addAttribute("people", peopleService.findALL());
+//        }
+//        return "books/show";
+//    }
+
     @GetMapping("/{id}")
-    public String show(@PathVariable("id") int id, Model model, @ModelAttribute("person") Person person) {
-        model.addAttribute("book", bookService.findOne(id));
-
-        model.addAttribute("person", bookService.showBookTaker(id));
-
-        Optional<Person> bookTaker = bookService.showBookTaker(id);
-
-        if (bookTaker.isPresent()) {
-            model.addAttribute("booktaker", bookTaker.get());
+    public String show(@PathVariable("id") int id, Model model,
+                           @ModelAttribute("person") Person person) {
+        Book book = bookService.findOne(id);
+        model.addAttribute("book", book);
+        if (book.getOwner()!= null) {
+            model.addAttribute("booktaker", book.getOwner());
         } else {
-            model.addAttribute("people", peopleService.findALL());
+            model.addAttribute("people", peopleService.findall());
         }
         return "books/show";
     }
+
+
+
+
 
     @GetMapping("/new")
     public String newBook(@ModelAttribute("book") Book book) {
@@ -125,11 +142,19 @@ public class BooksController {
     }
 
     @PatchMapping("/search")
-    public String searchBookByName1(
+    public String searchBookByName1( Model model,
             @RequestParam(value = "name", required = false) String name,
-            @ModelAttribute("book") Book book, Model model) {
+            @ModelAttribute("book") Book book,
+            @ModelAttribute("person") Person person) {
 
-        model.addAttribute("books", bookService.findByNameStartingWith(name));
+//                if (bookService.findByNameStartingWith(name).isEmpty());
+//                    boolean result =false;
+
+
+//                            model.addAttribute("book", bookService.findOne(id));
+//        model.addAttribute("person", bookService.showBookTaker(id));
+
+        model.addAttribute("books", bookService.findByNameStartingWithIgnoreCase(name));
         return "redirect:/books/search";
     }
 

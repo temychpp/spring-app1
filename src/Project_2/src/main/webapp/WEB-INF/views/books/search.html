@@ -9,7 +9,7 @@
 <a style="color:black" href="/books">Книги</a>
 <hr/>
 
-<form th:method="PATCH" th:action="@{/books/search/searchBookByName1?name=name}" th:object="${book}">
+<form th:method="PATCH" th:action="@{/books/search/searchBookByName1}" th:object="${book}">
     <label for="name">Введите название книги: </label>
     <input type="text" th:field="*{name}" id="name"/>
     <input type="submit" value="Искать книгу!"/>

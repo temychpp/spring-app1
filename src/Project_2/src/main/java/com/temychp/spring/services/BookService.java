@@ -72,8 +72,8 @@ public class BookService {
         booksRepository.deleteById(id);
     }
 
-    public List<Book> findByNameStartingWith(String startingWith) {
-        return booksRepository.findByNameStartingWith(startingWith);
+    public List<Book> findByNameStartingWithIgnoreCase(String startingWith) {
+        return booksRepository.findByNameStartingWithIgnoreCase(startingWith);
     }
 
     @Transactional
@@ -92,19 +92,21 @@ public class BookService {
     @Transactional
     public void giveBookToPerson(int id, Person personWhichTakeBook) {
         Book book = booksRepository.findById(id).orElse(null);
-        assert book != null;
-        book.setOwner(personWhichTakeBook);
-        book.setDateOfRent(LocalDateTime.now());
-        booksRepository.save(book);
+        if (book != null) {
+            book.setOwner(personWhichTakeBook);
+            book.setDateOfRent(LocalDateTime.now());
+            booksRepository.save(book);
+        }
     }
 
     @Transactional
     public void giveBookToLibrary(int id) {
         Book book = booksRepository.findById(id).orElse(null);
-        assert book != null;
-        book.setOwner(null);
-        book.setDateOfRent(null);
-        booksRepository.save(book);
+        if (book != null) {
+            book.setOwner(null);
+            book.setDateOfRent(null);
+            booksRepository.save(book);
+        }
     }
 
     @Transactional
@@ -114,9 +116,14 @@ public class BookService {
 
         Person person = book.getOwner();
 
+        assert person != null;
         int personId = person.getId();
 
         return peopleRepository.findById(personId);
 
     }
+
+//    public List<Book> s
+
+
 }
