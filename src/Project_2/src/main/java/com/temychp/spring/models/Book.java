@@ -6,10 +6,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.time.Duration;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-//import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "Book")
@@ -22,7 +19,7 @@ public class Book {
 
     @NotEmpty(message = "Name should not be empty")
     @Size(min = 1, max = 30, message = "name should be between 1 and 30 characters")
-    @Pattern(regexp = "[А-Яа-я\\s]+", message = "incorrect name")
+    @Pattern(regexp = "[А-Яа-яё\\s]+", message = "incorrect name")
     @Column(name = "name")
     private String name;
 
@@ -40,7 +37,6 @@ public class Book {
     private Person owner;
 
     @Column(name = "date_of_rent")
-//    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime dateOfRent;
 
     @Transient
