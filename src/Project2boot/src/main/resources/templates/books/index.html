@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Все книги</title>
+</head>
+<body>
+<a style="color:black" href="/people">Люди</a>___
+<a style="color:black" href="/books">Книги</a>___
+<br/>
+<br/>
+<a style="color:black" href="/books/search">Поиск книги по названию</a>___
+<a style="color:black" href="/books?sort_by_year=true">Сортировка книги по году</a>___
+<a style="color:black" href="/books?page=0&books_per_page=3">Пагинация</a>___
+<a style="color:black" href="/books?page=0&books_per_page=3&sort_by_year=true">Пагинация и Сортировка</a>
+
+<hr/>
+<div th:each="book : ${books}">
+    <a th:href="@{/books/{id}(id=${book.getId()})}"
+       th:text="${book.getName() + ', ' + book.getAuthor() + ', '+ book.getYearOfProduction()}">book</a>
+</div>
+<hr/>
+<form method="GET" action="/books/new">
+    <input type="submit" value="Добавить книгу"/>
+</form>
+</body>
+</html>
