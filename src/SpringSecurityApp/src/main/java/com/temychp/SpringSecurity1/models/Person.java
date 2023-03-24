@@ -1,11 +1,5 @@
 package com.temychp.SpringSecurity1.models;
 
-//import jakarta.persistence.*;
-//import jakarta.validation.constraints.Min;
-//import jakarta.validation.constraints.NotEmpty;
-//import jakarta.validation.constraints.Pattern;
-//import jakarta.validation.constraints.Size;
-
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
@@ -19,22 +13,23 @@ public class Person {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    private int id;
 
     @NotEmpty(message = "name should not be empty")
     @Pattern(regexp = "[А-Я][а-я]+\\s+[А-Я][а-я]+\\s[А-Я][а-я]+", message = "incorrect name")
     @Size(min = 5, max = 50, message = "name should be between 5 and 50 characters")
     @Column(name = "username")
-    String username;
+    private String username;
 
     @Min(value = 1900, message = "Year of birth should be greater than 1900")
     @Column(name = "year_of_birth")
-    int yearOfBirth;
+    private int yearOfBirth;
 
     @Column(name = "password")
-    String password;
+    private String password;
 
-    public Person(){}
+    public Person() {
+    }
 
     public Person(String username, int yearOfBirth) {
         this.username = username;
