@@ -1,10 +1,7 @@
 package com.temychp.SpringSecurity1.models;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 @Entity
 @Table(name = "Person")
@@ -17,7 +14,7 @@ public class Person {
 
     @NotEmpty(message = "name should not be empty")
 //    @Pattern(regexp = "[А-Я][а-я]+\\s+[А-Я][а-я]+\\s[А-Я][а-я]+", message = "incorrect name")
-    @Size(min = 5, max = 50, message = "name should be between 5 and 50 characters")
+    @Size(min = 2, max = 50, message = "name should be between 2 and 50 characters")
     @Column(name = "username")
     private String username;
 
@@ -27,6 +24,10 @@ public class Person {
 
     @Column(name = "password")
     private String password;
+
+    @NotNull
+    @Column(name = "role")
+    private String role;
 
     public Person() {
     }
@@ -68,12 +69,21 @@ public class Person {
         this.password = password;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     @Override
     public String toString() {
         return "Person{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", yearOfBirth=" + yearOfBirth +
+                ", role='" + role + '\'' +
                 '}';
     }
 }

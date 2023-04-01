@@ -20,9 +20,15 @@ public class HelloController {
     @GetMapping("/showUserInfo")
     public String showUserInfo() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
         PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
         System.out.println(personDetails.getPerson());
         return "hello";
     }
+
+    @GetMapping("/admin")
+    public String adminPage() {
+        return "admin";
+    }
+
+
 }
