@@ -2,8 +2,12 @@ package com.temychp.spring.firstRestApp.services;
 
 import com.temychp.spring.firstRestApp.models.Person;
 import com.temychp.spring.firstRestApp.repositories.PeopleRepository;
+import com.temychp.spring.firstRestApp.util.PersonErrorResponse;
+import com.temychp.spring.firstRestApp.util.PersonNotFoundException;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,7 +32,13 @@ public class PeopleService {
 
     public Person findOne(int id) {
         Optional<Person> foundPerson = peopleRepository.findById(id);
-        return foundPerson.orElse(null);
+        return foundPerson.orElseThrow(PersonNotFoundException::new);
     }
 
+    private ResponseEntity<PersonErrorResponse> handleException(PersonNotFoundException e) {
+        PersonErrorResponse response =
+                new PersonErrorResponse("Person with this id not found",
+                        System.currentTimeMillis());
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
 }
