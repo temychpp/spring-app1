@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,7 +37,14 @@ public class PeopleService {
 
     @Transactional
     public void save(Person person) {
+        enrichPerson(person);
         peopleRepository.save(person);
+    }
+
+    private void enrichPerson(Person person) {
+        person.setCreatedAt(LocalDateTime.now());
+        person.setUpdatedAt(LocalDateTime.now());
+        person.setCreatedWho("ADMIN");
     }
 
     private ResponseEntity<PersonErrorResponse> handleException(PersonNotFoundException e) {
@@ -54,5 +62,4 @@ public class PeopleService {
                 );
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
-
 }
